@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나이 계산기 - 한국식 나이 & 만 나이 계산</title>
+  <meta name="description" content="한국식 나이와 만 나이를 한번에 계산하세요. 생년월일을 입력하면 정확한 나이를 알려드립니다.">
+  <meta name="keywords" content="나이계산기, 만나이, 한국나이, 나이계산, 생년월일">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #12121a;
+      --accent: #e8c547;
+      --accent2: #f0a500;
+      --text: #f0ede6;
+      --muted: #7a7a8a;
+      --border: #2a2a3a;
+      --glow: rgba(232, 197, 71, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at 60% 20%, rgba(232,197,71,0.05) 0%, transparent 50%),
+                  radial-gradient(ellipse at 20% 80%, rgba(240,165,0,0.04) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .ad-box {
+      background: var(--card);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      margin-bottom: 28px;
+    }
+    .ad-top { height: 90px; }
+    .ad-mid { height: 250px; margin-bottom: 24px; }
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+      animation: fadeDown 0.7s ease both;
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #0a0a0f;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle { color: var(--muted); font-size: 14px; font-weight: 300; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .card::before, .result-card::before, .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .date-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .date-field { position: relative; }
+    .date-field select, .date-field input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+    .date-field select:focus, .date-field input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+    .date-field::after {
+      content: '▾';
+      position: absolute;
+      right: 12px;
+      top: 13px;
+      color: var(--muted);
+      pointer-events: none;
+      font-size: 12px;
+    }
+    .date-field input + span.arrow { display: none; }
+    .field-label {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    input[type="number"] { -moz-appearance: textfield; }
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #0a0a0f;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(232,197,71,0.25);
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,197,71,0.35); }
+    .btn:active { transform: translateY(0); }
+    .result-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      display: none;
+    }
+    .result-card.show { display: block; animation: fadeUp 0.5s ease both; }
+    .result-title {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .result-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+    }
+    .result-item.highlight {
+      background: linear-gradient(135deg, rgba(232,197,71,0.1), rgba(240,165,0,0.05));
+      border-color: rgba(232,197,71,0.3);
+    }
+    .result-label { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 8px; }
+    .result-value {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1;
+    }
+    .result-item.highlight .result-value {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .result-unit {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      font-family: 'Noto Sans KR', sans-serif;
+      -webkit-text-fill-color: var(--muted);
+    }
+    .detail-section { border-top: 1px solid var(--border); padding-top: 20px; }
+    .detail-title { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 14px; }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .detail-item {
+      text-align: center;
+      padding: 12px 8px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .detail-num { font-size: 1rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 4px; }
+    .detail-desc { font-size: 10px; color: var(--muted); }
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+    .info-card h2 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.2rem;
+      margin-bottom: 14px;
+    }
+    .info-card p { color: var(--muted); font-size: 14px; line-height: 1.8; margin-bottom: 10px; }
+    .info-tag {
+      display: inline-block;
+      background: rgba(232,197,71,0.12);
+      color: var(--accent);
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin: 4px 4px 0 0;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 16px 0 32px;
+      line-height: 1.8;
+    }
+    @media (max-width: 480px) {
+      .card, .result-card, .info-card { padding: 20px 16px; }
+      .result-grid { grid-template-columns: 1fr; }
+      .detail-grid { grid-template-columns: 1fr 1fr; }
+    }
+  
+  /* === 계산왕 B 로고 === */
+  .logo-b-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .logo-b-crown {
+    font-size: 13px;
+    filter: drop-shadow(0 0 6px rgba(52,211,153,0.8));
+    animation: crownFloat 3s ease-in-out infinite;
+    display: block;
+    text-align: center;
+    margin-bottom: -1px;
+  }
+  @keyframes crownFloat {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)}
+  }
+  .logo-b-text {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  .logo-b-text .lk { color: #34d399; }
+  .logo-b-text .ls { color: #fff; }
+  .logo-b-text .lw { color: #fff; text-shadow: 0 0 10px rgba(52,211,153,0.5); }
+
+  </style>
+</head>
+<body>
+<nav style="background:#1a1a2e;padding:0 24px;display:flex;align-items:center;height:56px;gap:16px;position:relative;z-index:10"><a href="index.html" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px">← 홈</a><a href="index.html" style="font-family:Noto Serif KR,serif;font-size:1.1rem;font-weight:900;color:#e8c547;text-decoration:none">계산<span style="color:#fff">왕</span></a></nav>
+<div class="container">
+
+  <div class="ad-box ad-top">📢 AdSense 광고 영역 (728×90)</div>
+
+  <header>
+    <div class="badge">🇰🇷 KOREAN AGE CALCULATOR</div>
+    <h1>나이 <span>계산기</span></h1>
+    <p class="subtitle">한국식 나이 · 만 나이 · 생일 D-day 한번에 계산</p>
+  </header>
+
+  <div class="card">
+    <label>📅 생년월일 입력</label>
+    <div class="date-inputs">
+      <div class="date-field">
+        <input type="number" id="birthYear" placeholder="예: 1990" min="1900" max="2025">
+        <span class="field-label">년</span>
+      </div>
+      <div class="date-field">
+        <select id="birthMonth">
+          <option value="">월 선택</option>
+          <option value="1">1월</option><option value="2">2월</option>
+          <option value="3">3월</option><option value="4">4월</option>
+          <option value="5">5월</option><option value="6">6월</option>
+          <option value="7">7월</option><option value="8">8월</option>
+          <option value="9">9월</option><option value="10">10월</option>
+          <option value="11">11월</option><option value="12">12월</option>
+        </select>
+        <span class="field-label">월</span>
+      </div>
+      <div class="date-field">
+        <select id="birthDay">
+          <option value="">일 선택</option>
+        </select>
+        <span class="field-label">일</span>
+      </div>
+    </div>
+    <p class="error-msg" id="errorMsg">⚠ 생년월일을 정확히 입력해주세요.</p>
+    <button class="btn" onclick="calculate()">🎂 나이 계산하기</button>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="result-title">📊 계산 결과</div>
+    <div class="result-grid">
+      <div class="result-item highlight">
+        <div class="result-label">🇰🇷 한국식 나이</div>
+        <div class="result-value" id="koreanAge">—</div>
+      </div>
+      <div class="result-item">
+        <div class="result-label">🌍 만 나이</div>
+        <div class="result-value" id="intlAge">—</div>
+      </div>
+      <div class="result-item">
+        <div class="result-label">📅 연 나이</div>
+        <div class="result-value" id="yearAge">—</div>
+      </div>
+      <div class="result-item">
+        <div class="result-label">🎂 다음 생일까지</div>
+        <div class="result-value" id="dday">—</div>
+      </div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-title">⏱ 상세 정보</div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-num" id="totalDays">—</span>
+          <span class="detail-desc">살아온 날수</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-num" id="totalMonths">—</span>
+          <span class="detail-desc">총 개월수</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-num" id="totalHours">—</span>
+          <span class="detail-desc">총 시간(만)</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-num" id="zodiac">—</span>
+          <span class="detail-desc">띠</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-num" id="generation">—</span>
+          <span class="detail-desc">세대</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-num" id="weekday">—</span>
+          <span class="detail-desc">태어난 요일</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-box ad-mid">📢 AdSense 광고 영역 (300×250)</div>
+
+  <div class="info-card">
+    <h2>한국식 나이 계산 방법</h2>
+    <p>한국에서는 태어나는 순간 1살이며, 매년 1월 1일에 나이가 한 살 늘어납니다.</p>
+    <p><strong style="color:var(--text)">공식:</strong> 현재 연도 - 출생 연도 + 1</p>
+    <div style="margin-top:12px">
+      <span class="info-tag">한국식 나이</span>
+      <span class="info-tag">만 나이</span>
+      <span class="info-tag">연 나이</span>
+      <span class="info-tag">D-day 계산</span>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h2>만 나이 계산 방법</h2>
+    <p>만 나이는 국제 표준 방식으로, 생일이 지날 때마다 한 살씩 증가합니다. 2023년부터 한국도 법적으로 만 나이를 표준으로 사용합니다.</p>
+    <p><strong style="color:var(--text)">공식:</strong> 현재 연도 - 출생 연도 (생일 전이면 -1)</p>
+  </div>
+
+  <div class="ad-box" style="height:90px; margin-bottom:24px;">📢 AdSense 광고 영역 (728×90)</div>
+
+  <footer>
+    © 2025 나이계산기 · 한국식/만 나이 정확 계산 서비스<br>
+    본 계산기는 참고용이며 법적 효력이 없습니다.
+  </footer>
+</div>
+
+<script>
+  const today = new Date();
+  const ZODIAC = ['원숭이','닭','개','돼지','쥐','소','호랑이','토끼','용','뱀','말','양'];
+  const WEEKDAYS = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+
+  function getGeneration(y) {
+    if (y >= 2010) return 'Z세대';
+    if (y >= 1996) return 'MZ세대';
+    if (y >= 1981) return '밀레니얼';
+    if (y >= 1965) return 'X세대';
+    if (y >= 1955) return '베이비붐';
+    return '시니어';
+  }
+
+  document.getElementById('birthMonth').addEventListener('change', updateDays);
+  document.getElementById('birthYear').addEventListener('input', updateDays);
+
+  function updateDays() {
+    const y = parseInt(document.getElementById('birthYear').value) || 2000;
+    const m = parseInt(document.getElementById('birthMonth').value) || 1;
+    const maxDay = new Date(y, m, 0).getDate();
+    const sel = document.getElementById('birthDay');
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">일 선택</option>';
+    for (let i = 1; i <= maxDay; i++) {
+      const o = document.createElement('option');
+      o.value = i; o.textContent = i + '일';
+      if (i == cur) o.selected = true;
+      sel.appendChild(o);
+    }
+  }
+
+  function set(id, html) { document.getElementById(id).innerHTML = html; }
+
+  function calculate() {
+    const y = parseInt(document.getElementById('birthYear').value);
+    const m = parseInt(document.getElementById('birthMonth').value);
+    const d = parseInt(document.getElementById('birthDay').value);
+    const err = document.getElementById('errorMsg');
+
+    if (!y || !m || !d || y < 1900 || y > today.getFullYear()) {
+      err.classList.add('show'); return;
+    }
+    err.classList.remove('show');
+
+    const birth = new Date(y, m - 1, d);
+
+    // 한국식
+    const korean = today.getFullYear() - y + 1;
+
+    // 만 나이
+    let intl = today.getFullYear() - y;
+    const passed = (today.getMonth() > m - 1) || (today.getMonth() === m - 1 && today.getDate() >= d);
+    if (!passed) intl--;
+
+    // 연 나이
+    const yearAge = today.getFullYear() - y;
+
+    // D-day
+    let next = new Date(today.getFullYear(), m - 1, d);
+    if (next <= today) next.setFullYear(today.getFullYear() + 1);
+    const ddayVal = Math.ceil((next - today) / 86400000);
+
+    // 상세
+    const days = Math.floor((today - birth) / 86400000);
+    const months = (today.getFullYear() - y) * 12 + (today.getMonth() - (m - 1));
+    const hours = Math.floor(days * 24 / 10000);
+
+    set('koreanAge', `${korean}<span class="result-unit">세</span>`);
+    set('intlAge', `${intl}<span class="result-unit">세</span>`);
+    set('yearAge', `${yearAge}<span class="result-unit">세</span>`);
+    set('dday', ddayVal === 0 ? `🎉<span class="result-unit"> 오늘!</span>` : `D-${ddayVal}<span class="result-unit">일</span>`);
+    set('totalDays', days.toLocaleString() + '일');
+    set('totalMonths', months.toLocaleString() + '개월');
+    set('totalHours', hours.toLocaleString() + '만시간');
+    set('zodiac', ZODIAC[y % 12] + '띠');
+    set('generation', getGeneration(y));
+    set('weekday', WEEKDAYS[birth.getDay()]);
+
+    const rc = document.getElementById('resultCard');
+    rc.classList.add('show');
+    rc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.addEventListener('keypress', e => { if (e.key === 'Enter') calculate(); });
+  updateDays();
+</script>
+</body>
+</html>

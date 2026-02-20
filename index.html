@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>계산왕 - 모든 계산기 한곳에</title>
+  <meta name="description" content="나이계산기, BMI계산기, 날짜계산기, 칼로리계산기, 로또번호생성기 등 모든 계산기를 무료로 제공합니다.">
+  <meta name="keywords" content="계산기, 나이계산기, BMI계산기, 날짜계산기, 디데이계산기, 칼로리계산기, 로또번호">
+  <meta property="og:title" content="계산왕 - 모든 계산기 한곳에">
+  <meta property="og:description" content="나이, BMI, 날짜, 칼로리, 로또 등 생활에 필요한 모든 계산기">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --card: #ffffff;
+      --dark: #1a1a2e;
+      --accent: #ff6b35;
+      --accent2: #f7c59f;
+      --text: #1a1a2e;
+      --muted: #8a8a9a;
+      --border: #e8e4dc;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      background: #050d0a;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: #fff; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    /* AD TOP */
+    .ad-strip {
+      background: #050d0a;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.25);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    /* HERO */
+    .hero {
+      background: #050d0a;
+      padding: 60px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,107,53,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,107,53,0.15);
+      color: var(--accent);
+      border: 1px solid rgba(255,107,53,0.3);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero p {
+      color: rgba(255,255,255,0.5);
+      font-size: 15px;
+      font-weight: 300;
+      margin-bottom: 36px;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--accent);
+      display: block;
+    }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+    /* SEARCH */
+    .search-wrap {
+      max-width: 500px;
+      margin: 0 auto 0;
+      padding: 0 24px;
+      transform: translateY(-28px);
+    }
+    .search-box {
+      display: flex;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .search-box:focus-within { border-color: var(--accent); }
+    .search-box input {
+      flex: 1;
+      padding: 16px 18px;
+      border: none;
+      outline: none;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: transparent;
+    }
+    .search-box input::placeholder { color: var(--muted); }
+    .search-box button {
+      padding: 0 20px;
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* MAIN */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* FEATURED - big cards */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 768px) { .featured-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .featured-grid { grid-template-columns: 1fr; } }
+
+    .calc-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .calc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .calc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-color: transparent; }
+    .calc-card:hover::before { transform: scaleX(1); }
+
+    .card-icon { font-size: 2.4rem; margin-bottom: 14px; display: block; }
+    .card-title { font-family: 'Noto Serif KR', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+    .card-tag {
+      display: inline-block;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+    .card-arrow {
+      position: absolute;
+      bottom: 24px; right: 24px;
+      font-size: 18px;
+      color: var(--muted);
+      transition: transform 0.2s, color 0.2s;
+    }
+    .calc-card:hover .card-arrow { transform: translate(3px, -3px); color: var(--accent); }
+
+    .hot-badge {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    /* AD MID */
+    .ad-mid {
+      background: var(--card);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      margin: 0 0 48px;
+    }
+
+    /* ALL CALCS GRID */
+    .all-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 768px) { .all-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .mini-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .mini-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+    .mini-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .mini-name { font-size: 14px; font-weight: 500; }
+    .mini-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* SEO CONTENT */
+    .seo-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .seo-section h2 { font-family: 'Noto Serif KR', serif; font-size: 1.2rem; margin-bottom: 14px; }
+    .seo-section p { color: var(--muted); font-size: 14px; line-height: 1.9; }
+
+    /* FOOTER */
+    footer {
+      background: #050d0a;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 13px;
+      line-height: 2;
+    }
+    footer a { color: rgba(255,255,255,0.4); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: #fff; }
+  
+  /* === 계산왕 B 로고 === */
+  .logo-b-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .logo-b-crown {
+    font-size: 13px;
+    filter: drop-shadow(0 0 6px rgba(52,211,153,0.8));
+    animation: crownFloat 3s ease-in-out infinite;
+    display: block;
+    text-align: center;
+    margin-bottom: -1px;
+  }
+  @keyframes crownFloat {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)}
+  }
+  .logo-b-text {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  .logo-b-text .lk { color: #34d399; }
+  .logo-b-text .ls { color: #fff; }
+  .logo-b-text .lw { color: #fff; text-shadow: 0 0 10px rgba(52,211,153,0.5); }
+
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo-b-wrap">
+      <span class="logo-b-crown">👑</span>
+      <span class="logo-b-text"><span class="lk">계</span><span class="ls">산</span><span class="lw">왕</span></span>
+    </a>
+  <div class="nav-links">
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+  </div>
+</nav>
+
+<!-- 상단 광고 -->
+<div class="ad-strip">📢 광고 영역 (728×90) — AdSense 코드 삽입</div>
+
+<!-- 히어로 -->
+<section class="hero">
+  <div class="hero-badge">🏆 대한민국 No.1 계산기 사이트</div>
+  <h1>모든 계산,<br><em>계산왕</em>에서 끝내세요</h1>
+  <p>나이·BMI·날짜·칼로리·로또 등 생활 속 모든 계산을 무료로</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">10+</span><div class="stat-label">무료 계산기</div></div>
+    <div class="stat"><span class="stat-num">100%</span><div class="stat-label">무료 이용</div></div>
+    <div class="stat"><span class="stat-num">즉시</span><div class="stat-label">결과 확인</div></div>
+  </div>
+</section>
+
+<!-- 검색창 -->
+<div class="search-wrap">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="계산기 검색... (예: 나이, BMI, 날짜)" oninput="filterCards()">
+    <button>🔍</button>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- 인기 계산기 -->
+  <h2 class="section-title">🔥 인기 계산기</h2>
+  <div class="featured-grid" id="featuredGrid">
+
+    <a href="age.html" class="calc-card" style="--card-accent:#ff6b35" data-search="나이 age 한국나이 만나이">
+      <div class="hot-badge">HOT</div>
+      <span class="card-icon">🎂</span>
+      <div class="card-title">나이 계산기</div>
+      <div class="card-desc">한국식 나이, 만 나이, 띠, 태어난 요일까지 한번에</div>
+      <span class="card-tag">한국나이</span>
+      <span class="card-tag">만나이</span>
+      <span class="card-tag">D-day</span>
+      <div class="card-arrow">↗</div>
+    </a>
+
+    <a href="bmi.html" class="calc-card" style="--card-accent:#34d399" data-search="BMI 체질량 비만 건강 몸무게 키">
+      <span class="card-icon">⚖️</span>
+      <div class="card-title">BMI 계산기</div>
+      <div class="card-desc">체질량지수로 내 체형을 정확하게 확인하세요</div>
+      <span class="card-tag">체질량지수</span>
+      <span class="card-tag">비만도</span>
+      <span class="card-tag">정상체중</span>
+      <div class="card-arrow">↗</div>
+    </a>
+
+    <a href="date.html" class="calc-card" style="--card-accent:#818cf8" data-search="날짜 디데이 dday 기념일 생일">
+      <div class="hot-badge">인기</div>
+      <span class="card-icon">📅</span>
+      <div class="card-title">날짜·디데이 계산기</div>
+      <div class="card-desc">두 날짜 사이 일수, 기념일, 디데이 카운트다운</div>
+      <span class="card-tag">디데이</span>
+      <span class="card-tag">기념일</span>
+      <span class="card-tag">날짜차이</span>
+      <div class="card-arrow">↗</div>
+    </a>
+
+    <a href="calorie.html" class="calc-card" style="--card-accent:#f59e0b" data-search="칼로리 다이어트 열량 운동 소비">
+      <span class="card-icon">🔥</span>
+      <div class="card-title">칼로리 계산기</div>
+      <div class="card-desc">하루 필요 칼로리, 음식별 열량, 운동 소모 칼로리</div>
+      <span class="card-tag">다이어트</span>
+      <span class="card-tag">기초대사량</span>
+      <span class="card-tag">열량</span>
+      <div class="card-arrow">↗</div>
+    </a>
+
+    <a href="lotto.html" class="calc-card" style="--card-accent:#ec4899" data-search="로또 번호 추첨 랜덤">
+      <span class="card-icon">🎰</span>
+      <div class="card-title">로또 번호 생성기</div>
+      <div class="card-desc">행운의 로또 번호를 랜덤으로 자동 생성</div>
+      <span class="card-tag">로또645</span>
+      <span class="card-tag">랜덤번호</span>
+      <span class="card-tag">행운</span>
+      <div class="card-arrow">↗</div>
+    </a>
+
+    <a href="salary.html" class="calc-card" style="--card-accent:#06b6d4" data-search="급여 월급 세금 실수령액 연봉">
+      <span class="card-icon">💰</span>
+      <div class="card-title">급여 실수령액 계산기</div>
+      <div class="card-desc">연봉/월급에서 세금 공제 후 실제 수령액 계산</div>
+      <span class="card-tag">연봉</span>
+      <span class="card-tag">실수령액</span>
+      <span class="card-tag">세금공제</span>
+      <div class="card-arrow">↗</div>
+    </a>
+
+  </div>
+
+  <!-- 중간 광고 -->
+  <div class="ad-mid">📢 광고 영역 (728×90 or 300×250) — AdSense 코드 삽입</div>
+
+  <!-- 전체 계산기 목록 -->
+  <h2 class="section-title">📋 전체 계산기</h2>
+  <div class="all-grid" id="allGrid">
+    <a href="age.html" class="mini-card" data-search="나이"><span class="mini-icon">🎂</span><div><div class="mini-name">나이 계산기</div><div class="mini-sub">한국식·만 나이</div></div></a>
+    <a href="bmi.html" class="mini-card" data-search="BMI 체질량"><span class="mini-icon">⚖️</span><div><div class="mini-name">BMI 계산기</div><div class="mini-sub">체질량지수·비만도</div></div></a>
+    <a href="date.html" class="mini-card" data-search="날짜 디데이"><span class="mini-icon">📅</span><div><div class="mini-name">날짜·디데이</div><div class="mini-sub">날짜 간격·기념일</div></div></a>
+    <a href="calorie.html" class="mini-card" data-search="칼로리 다이어트"><span class="mini-icon">🔥</span><div><div class="mini-name">칼로리 계산기</div><div class="mini-sub">기초대사량·열량</div></div></a>
+    <a href="lotto.html" class="mini-card" data-search="로또 번호"><span class="mini-icon">🎰</span><div><div class="mini-name">로또 번호 생성</div><div class="mini-sub">랜덤 번호 추첨</div></div></a>
+    <a href="salary.html" class="mini-card" data-search="급여 월급 연봉"><span class="mini-icon">💰</span><div><div class="mini-name">급여 실수령액</div><div class="mini-sub">연봉·세금계산</div></div></a>
+    <a href="loan.html" class="mini-card" data-search="대출 이자 원리금"><span class="mini-icon">🏦</span><div><div class="mini-name">대출이자 계산기</div><div class="mini-sub">원리금·월상환액</div></div></a>
+    <a href="unit.html" class="mini-card" data-search="단위 변환 길이 무게"><span class="mini-icon">📏</span><div><div class="mini-name">단위변환 계산기</div><div class="mini-sub">길이·무게·온도</div></div></a>
+  </div>
+
+  <!-- SEO 콘텐츠 -->
+  <div class="seo-section">
+    <h2>계산왕이란?</h2>
+    <p>계산왕은 대한민국 최고의 무료 온라인 계산기 서비스입니다. 나이 계산기, BMI 계산기, 날짜 계산기, 칼로리 계산기, 로또 번호 생성기, 급여 실수령액 계산기, 대출이자 계산기 등 생활에 필요한 모든 계산 도구를 하나의 사이트에서 무료로 이용하실 수 있습니다. 모바일·PC 모두 최적화된 환경에서 빠르고 정확한 계산 결과를 확인하세요.</p>
+  </div>
+
+  <!-- 하단 광고 -->
+  <div class="ad-mid" style="height:90px; margin-bottom:0">📢 광고 영역 (728×90) — AdSense 코드 삽입</div>
+
+</main>
+
+<footer>
+  <div>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <a href="mailto:contact@gyesanwang.com">문의</a>
+  </div>
+  <div style="margin-top:12px">© 2025 계산왕 · 모든 계산기 무료 제공</div>
+  <div style="margin-top:4px; font-size:11px">본 사이트의 계산 결과는 참고용이며 법적 효력이 없습니다.</div>
+</footer>
+
+<script>
+function filterCards() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('[data-search]').forEach(el => {
+    const match = el.dataset.search.toLowerCase().includes(q) || el.textContent.toLowerCase().includes(q);
+    el.style.display = match ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

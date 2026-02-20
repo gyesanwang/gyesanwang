@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>계산왕 소개 - 무료 계산기 서비스</title>
+  <meta name="description" content="계산왕은 나이, BMI, 날짜, 칼로리, 로또 등 생활 속 모든 계산기를 무료로 제공하는 대한민국 대표 계산기 사이트입니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#f7f5f0; --card:#fff; --dark:#1a1a2e; --accent:#ff6b35; --text:#1a1a2e; --muted:#6b7280; --border:#e8e4dc; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; }
+    nav { background: #050d0a; padding:0 24px; display:flex; align-items:center; height:56px; gap:16px; }
+    .back-btn { color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; }
+    .logo { font-family:'Noto Serif KR',serif; font-size:1.1rem; font-weight:900; color:var(--accent); text-decoration:none; }
+    .logo span { color:#fff; }
+    .container { max-width:720px; margin:0 auto; padding:40px 16px 60px; }
+    .hero { text-align:center; padding:40px 20px; background:var(--dark); border-radius:24px; margin-bottom:24px; }
+    .hero .logo-big { font-family:'Noto Serif KR',serif; font-size:3rem; font-weight:900; color:var(--accent); }
+    .hero .logo-big span { color:#fff; }
+    .hero p { color:rgba(255,255,255,0.5); font-size:15px; margin-top:12px; }
+    .section { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:24px; margin-bottom:16px; }
+    h2 { font-family:'Noto Serif KR',serif; font-size:1.1rem; margin-bottom:14px; }
+    p { color:var(--muted); font-size:14px; line-height:1.9; margin-bottom:10px; }
+    p:last-child { margin-bottom:0; }
+    .calc-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .calc-item { display:flex; align-items:center; gap:10px; padding:12px; background:var(--bg); border-radius:10px; text-decoration:none; color:var(--text); transition:transform 0.15s; }
+    .calc-item:hover { transform:translateX(4px); }
+    .calc-item span:first-child { font-size:1.4rem; }
+    .calc-name { font-size:13px; font-weight:500; }
+    footer { background:var(--dark); color:rgba(255,255,255,0.4); text-align:center; padding:24px; font-size:12px; }
+    footer a { color:rgba(255,255,255,0.4); text-decoration:none; margin:0 8px; }
+  
+  /* === 계산왕 B 로고 === */
+  .logo-b-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .logo-b-crown {
+    font-size: 13px;
+    filter: drop-shadow(0 0 6px rgba(52,211,153,0.8));
+    animation: crownFloat 3s ease-in-out infinite;
+    display: block;
+    text-align: center;
+    margin-bottom: -1px;
+  }
+  @keyframes crownFloat {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)}
+  }
+  .logo-b-text {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  .logo-b-text .lk { color: #34d399; }
+  .logo-b-text .ls { color: #fff; }
+  .logo-b-text .lw { color: #fff; text-shadow: 0 0 10px rgba(52,211,153,0.5); }
+
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="back-btn">← 홈</a>
+  <a href="index.html" class="logo-b-wrap">
+      <span class="logo-b-crown">👑</span>
+      <span class="logo-b-text"><span class="lk">계</span><span class="ls">산</span><span class="lw">왕</span></span>
+    </a>
+</nav>
+
+<div class="container">
+  <div class="hero">
+    <div class="logo-big">계산<span>왕</span></div>
+    <p>대한민국 No.1 무료 계산기 서비스</p>
+  </div>
+
+  <div class="section">
+    <h2>계산왕 소개</h2>
+    <p>계산왕은 바쁜 일상 속에서 필요한 모든 계산을 빠르고 정확하게 할 수 있도록 도와드리는 무료 온라인 계산기 서비스입니다.</p>
+    <p>나이 계산기, BMI 계산기, 날짜·디데이 계산기, 칼로리 계산기, 로또 번호 생성기, 급여 실수령액 계산기, 대출이자 계산기 등 생활에 꼭 필요한 다양한 계산 도구를 한 곳에서 무료로 이용하실 수 있습니다.</p>
+    <p>모든 계산기는 PC, 태블릿, 스마트폰 등 다양한 기기에서 최적화된 환경으로 제공됩니다.</p>
+  </div>
+
+  <div class="section">
+    <h2>🧮 제공 중인 계산기</h2>
+    <div class="calc-list">
+      <a href="age.html" class="calc-item"><span>🎂</span><span class="calc-name">나이 계산기</span></a>
+      <a href="bmi.html" class="calc-item"><span>⚖️</span><span class="calc-name">BMI 계산기</span></a>
+      <a href="date.html" class="calc-item"><span>📅</span><span class="calc-name">날짜·디데이 계산기</span></a>
+      <a href="calorie.html" class="calc-item"><span>🔥</span><span class="calc-name">칼로리 계산기</span></a>
+      <a href="lotto.html" class="calc-item"><span>🎰</span><span class="calc-name">로또 번호 생성기</span></a>
+      <a href="salary.html" class="calc-item"><span>💰</span><span class="calc-name">급여 실수령액 계산기</span></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📌 이용 안내</h2>
+    <p>본 사이트의 모든 계산기는 완전 무료로 제공됩니다. 회원가입이나 로그인 없이 즉시 이용 가능합니다.</p>
+    <p>계산 결과는 참고용이며, 법적·의학적·금융적 효력이 없습니다. 중요한 결정은 전문가와 상담하시기 바랍니다.</p>
+  </div>
+
+  <div class="section">
+    <h2>📧 문의</h2>
+    <p>서비스 이용 중 불편한 점이나 개선 사항이 있으시면 이메일로 문의해 주세요.</p>
+    <p><strong style="color:var(--accent)">contact@gyesanwang.com</strong></p>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">홈</a><a href="privacy.html">개인정보처리방침</a>
+  <div style="margin-top:8px">© 2025 계산왕 · 모든 계산기 무료 제공</div>
+</footer>
+</body>
+</html>

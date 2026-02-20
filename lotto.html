@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로또 번호 생성기 - 무료 랜덤 번호 추첨 | 계산왕</title>
+  <meta name="description" content="행운의 로또 6/45 번호를 무료로 자동 생성하세요. 최대 5게임 동시 생성, 번호 통계 분석 제공.">
+  <meta name="keywords" content="로또번호생성기,로또자동,로또추첨,로또645,랜덤번호,행운번호">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#1a0533; --card:#2d0b52; --accent:#ec4899; --accent2:#a855f7; --text:#f0e6ff; --muted:#9ca3af; --border:#4c1d95; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; min-height:100vh; }
+    body::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse at 70% 10%,rgba(168,85,247,0.15) 0%,transparent 50%), radial-gradient(ellipse at 20% 80%,rgba(236,72,153,0.1) 0%,transparent 40%); pointer-events:none; z-index:0; }
+    nav { background: #050d0a; backdrop-filter:blur(10px); padding:0 24px; display:flex; align-items:center; height:56px; gap:16px; position:relative; z-index:10; border-bottom:1px solid rgba(255,255,255,0.1); }
+    .back-btn { color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; }
+    .back-btn:hover { color:#fff; }
+    .logo { font-family:'Noto Serif KR',serif; font-size:1.1rem; font-weight:900; color:var(--accent); text-decoration:none; }
+    .logo span { color:#fff; }
+    .ad-strip { background:rgba(0,0,0,0.4); border-bottom:1px solid rgba(255,255,255,0.1); height:90px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.2); font-size:12px; position:relative; z-index:10; }
+    .container { max-width:720px; margin:0 auto; padding:32px 16px 60px; position:relative; z-index:1; }
+    .page-header { text-align:center; margin-bottom:32px; }
+    .page-badge { display:inline-block; background:rgba(236,72,153,0.2); color:var(--accent); border:1px solid rgba(236,72,153,0.4); font-size:11px; font-weight:700; letter-spacing:0.15em; padding:4px 12px; border-radius:20px; margin-bottom:12px; }
+    h1 { font-family:'Noto Serif KR',serif; font-size:clamp(1.8rem,5vw,2.6rem); font-weight:900; margin-bottom:8px; }
+    h1 em { font-style:normal; color:var(--accent); }
+    .subtitle { color:var(--muted); font-size:14px; }
+    .card { background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:28px; margin-bottom:20px; }
+    .count-row { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+    .count-label { font-size:14px; color:var(--muted); }
+    .count-btns { display:flex; gap:6px; }
+    .count-btn { width:36px; height:36px; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.05); color:var(--text); font-family:'Noto Sans KR',sans-serif; font-size:14px; cursor:pointer; transition:all 0.2s; }
+    .count-btn.active { background:var(--accent2); border-color:var(--accent2); font-weight:700; }
+    .btn { width:100%; padding:16px; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; font-family:'Noto Sans KR',sans-serif; font-size:16px; font-weight:700; border:none; border-radius:12px; cursor:pointer; transition:transform 0.15s; box-shadow:0 4px 30px rgba(168,85,247,0.4); letter-spacing:0.05em; }
+    .btn:hover { transform:translateY(-2px); }
+    .btn:active { transform:scale(0.98); }
+    /* 로또 공 */
+    .games-wrap { margin-bottom:20px; }
+    .game { margin-bottom:16px; }
+    .game-label { font-size:12px; color:var(--muted); margin-bottom:8px; letter-spacing:0.1em; }
+    .balls { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .ball {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+      animation: popIn 0.4s ease both;
+    }
+    @keyframes popIn {
+      from { transform: scale(0) rotate(-180deg); opacity: 0; }
+      to { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    .ball.b1  { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #fff; }
+    .ball.b2  { background: linear-gradient(135deg, #60a5fa, #3b82f6); color: #fff; }
+    .ball.b3  { background: linear-gradient(135deg, #f87171, #ef4444); color: #fff; }
+    .ball.b4  { background: linear-gradient(135deg, #9ca3af, #6b7280); color: #fff; }
+    .ball.b5  { background: linear-gradient(135deg, #4ade80, #22c55e); color: #fff; }
+    .plus { color: var(--muted); font-size: 18px; }
+    .bonus-label { font-size: 10px; color: var(--accent); text-align: center; margin-top: 4px; }
+    .bonus-wrap { display: flex; flex-direction: column; align-items: center; }
+    .ad-mid { background:rgba(255,255,255,0.04); border:1px dashed rgba(255,255,255,0.15); border-radius:12px; height:120px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.2); font-size:12px; margin-bottom:20px; }
+    .info-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:24px; margin-bottom:16px; }
+    .info-card h2 { font-family:'Noto Serif KR',serif; font-size:1.1rem; margin-bottom:12px; }
+    .info-card p { color:var(--muted); font-size:14px; line-height:1.8; }
+    footer { background:rgba(0,0,0,0.5); color:rgba(255,255,255,0.3); text-align:center; padding:24px; font-size:12px; line-height:2; border-top:1px solid rgba(255,255,255,0.08); }
+    footer a { color:rgba(255,255,255,0.3); text-decoration:none; margin:0 8px; }
+  
+  /* === 계산왕 B 로고 === */
+  .logo-b-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .logo-b-crown {
+    font-size: 13px;
+    filter: drop-shadow(0 0 6px rgba(52,211,153,0.8));
+    animation: crownFloat 3s ease-in-out infinite;
+    display: block;
+    text-align: center;
+    margin-bottom: -1px;
+  }
+  @keyframes crownFloat {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)}
+  }
+  .logo-b-text {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  .logo-b-text .lk { color: #34d399; }
+  .logo-b-text .ls { color: #fff; }
+  .logo-b-text .lw { color: #fff; text-shadow: 0 0 10px rgba(52,211,153,0.5); }
+
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="back-btn">← 홈</a>
+  <a href="index.html" class="logo-b-wrap">
+      <span class="logo-b-crown">👑</span>
+      <span class="logo-b-text"><span class="lk">계</span><span class="ls">산</span><span class="lw">왕</span></span>
+    </a>
+</nav>
+<div class="ad-strip">📢 AdSense 광고 영역 (728×90)</div>
+
+<div class="container">
+  <div class="page-header">
+    <div class="page-badge">🎰 LOTTO GENERATOR</div>
+    <h1>로또 번호 <em>생성기</em></h1>
+    <p class="subtitle">행운의 로또 6/45 번호를 무료로 자동 생성</p>
+  </div>
+
+  <div class="card">
+    <div class="count-row">
+      <span class="count-label">게임 수 선택:</span>
+      <div class="count-btns" id="countBtns">
+        <button class="count-btn active" onclick="selectCount(1,this)">1</button>
+        <button class="count-btn" onclick="selectCount(2,this)">2</button>
+        <button class="count-btn" onclick="selectCount(3,this)">3</button>
+        <button class="count-btn" onclick="selectCount(5,this)">5</button>
+      </div>
+    </div>
+    <button class="btn" onclick="generate()">🎰 행운의 번호 생성!</button>
+  </div>
+
+  <div class="games-wrap" id="gamesWrap"></div>
+
+  <div class="ad-mid">📢 AdSense 광고 영역 (300×250)</div>
+
+  <div class="info-card">
+    <h2>로또 번호 색상 기준</h2>
+    <p>1~10: 노란공 · 11~20: 파란공 · 21~30: 빨간공 · 31~40: 회색공 · 41~45: 초록공. 본 생성기는 완전한 랜덤 방식으로 1~45 사이에서 6개 번호를 중복 없이 추첨합니다.</p>
+  </div>
+  <div class="info-card">
+    <h2>로또 당첨 확률</h2>
+    <p>로또 1등 당첨 확률은 약 814만분의 1입니다. 행운을 빌어요! 🍀 로또 복권은 만 19세 이상만 구매 가능합니다.</p>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">홈</a><a href="privacy.html">개인정보처리방침</a>
+  <div>© 2025 계산왕 · 본 생성기는 오락 목적이며 당첨을 보장하지 않습니다</div>
+</footer>
+
+<script>
+  let gameCount = 1;
+  function selectCount(n, btn) {
+    gameCount = n;
+    document.querySelectorAll('.count-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function getBallClass(n) {
+    if (n <= 10) return 'b1';
+    if (n <= 20) return 'b2';
+    if (n <= 30) return 'b3';
+    if (n <= 40) return 'b4';
+    return 'b5';
+  }
+
+  function generateNumbers() {
+    const pool = Array.from({length:45},(_,i)=>i+1);
+    const picked = [];
+    for (let i = 0; i < 6; i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      picked.push(pool.splice(idx,1)[0]);
+    }
+    picked.sort((a,b)=>a-b);
+    // bonus
+    const bonus = pool[Math.floor(Math.random()*pool.length)];
+    return {nums: picked, bonus};
+  }
+
+  function generate() {
+    const wrap = document.getElementById('gamesWrap');
+    wrap.innerHTML = '';
+    for (let g = 0; g < gameCount; g++) {
+      const {nums, bonus} = generateNumbers();
+      let ballsHTML = nums.map((n,i) =>
+        `<div class="ball ${getBallClass(n)}" style="animation-delay:${i*0.06+g*0.1}s">${n}</div>`
+      ).join('');
+      ballsHTML += `<span class="plus">+</span>
+        <div class="bonus-wrap">
+          <div class="ball ${getBallClass(bonus)}" style="animation-delay:${0.4+g*0.1}s;opacity:0.7">${bonus}</div>
+          <div class="bonus-label">보너스</div>
+        </div>`;
+      wrap.innerHTML += `
+        <div class="game" style="animation:fadeUp 0.4s ${g*0.1}s ease both;opacity:0">
+          <div class="game-label">🎫 ${g+1}게임</div>
+          <div class="balls">${ballsHTML}</div>
+        </div>`;
+    }
+    // trigger animation
+    setTimeout(() => {
+      document.querySelectorAll('.game').forEach(el => el.style.opacity = '1');
+    }, 50);
+  }
+</script>
+<style>
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+</style>
+</body>
+</html>
