@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI 정상수치 얼마일까? 체질량지수 완전 정리 2025</title>
+  <meta name="description" content="BMI 정상수치와 계산법을 완전히 정리했습니다. 아시아인 기준 저체중·정상·과체중·비만 BMI 범위와 이상적인 체중 계산법까지 알려드립니다.">
+  <meta name="keywords" content="BMI정상수치,체질량지수,BMI계산기,비만도,정상체중,BMI기준,과체중기준">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#fafaf8; --card:#fff; --dark:#1a1a2e; --accent:#34d399; --accent2:#059669; --text:#1a1a1a; --muted:#6b7280; --border:#e5e7eb; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; line-height:1.9; }
+    nav { background:#050d0a; padding:0 24px; display:flex; align-items:center; height:56px; gap:16px; }
+    .back-btn { color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; }
+    .logo-b-wrap { display:flex; flex-direction:column; align-items:center; gap:0; text-decoration:none; line-height:1; }
+    .logo-b-crown { font-size:13px; filter:drop-shadow(0 0 6px rgba(52,211,153,0.8)); animation:crownFloat 3s ease-in-out infinite; display:block; text-align:center; margin-bottom:-1px; }
+    @keyframes crownFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+    .logo-b-text { font-family:'Noto Serif KR',serif; font-size:1.2rem; font-weight:900; }
+    .logo-b-text .lk { color:#34d399; } .logo-b-text .ls,.logo-b-text .lw { color:#fff; }
+    .ad-strip { background:#050d0a; height:90px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.2); font-size:12px; border-top:1px solid rgba(255,255,255,0.08); }
+    .container { max-width:780px; margin:0 auto; padding:40px 20px 80px; }
+    .post-header { margin-bottom:36px; }
+    .post-cat { display:inline-block; background:rgba(52,211,153,0.12); color:var(--accent2); border:1px solid rgba(52,211,153,0.3); font-size:11px; font-weight:700; letter-spacing:0.15em; padding:4px 12px; border-radius:20px; margin-bottom:14px; }
+    .post-title { font-family:'Noto Serif KR',serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900; line-height:1.4; margin-bottom:14px; }
+    .post-meta { font-size:13px; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; padding-bottom:20px; border-bottom:2px solid var(--border); }
+    .cta-box { background:linear-gradient(135deg,#050d0a,#0a1f14); border-radius:16px; padding:24px; margin:28px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .cta-text { color:#fff; font-size:15px; font-weight:500; }
+    .cta-text strong { color:var(--accent); display:block; font-size:13px; margin-bottom:4px; letter-spacing:0.05em; }
+    .cta-btn { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#000; font-weight:700; font-size:14px; padding:12px 22px; border-radius:10px; text-decoration:none; white-space:nowrap; transition:transform 0.15s; }
+    .cta-btn:hover { transform:translateY(-2px); }
+    .post-body h2 { font-family:'Noto Serif KR',serif; font-size:1.4rem; font-weight:900; margin:36px 0 14px; padding-left:14px; border-left:4px solid var(--accent); }
+    .post-body h3 { font-size:1.1rem; font-weight:700; margin:24px 0 10px; color:var(--accent2); }
+    .post-body p { margin-bottom:16px; font-size:15px; color:#333; }
+    .post-body strong { color:var(--text); }
+    .highlight-box { background:rgba(52,211,153,0.08); border:1px solid rgba(52,211,153,0.25); border-radius:12px; padding:18px 20px; margin:20px 0; }
+    .highlight-box .title { font-weight:700; color:var(--accent2); margin-bottom:8px; font-size:14px; }
+    .highlight-box p { margin:0; font-size:14px; color:#444; }
+
+    /* BMI 시각화 바 */
+    .bmi-visual { margin:24px 0; }
+    .bmi-bar-container { height:24px; border-radius:12px; overflow:hidden; display:flex; margin-bottom:8px; }
+    .bmi-seg { display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#fff; }
+    .bmi-labels { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); }
+    .bmi-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:14px; }
+    .bmi-table th { background:var(--dark); color:#fff; padding:12px 16px; text-align:center; }
+    .bmi-table td { padding:11px 16px; border-bottom:1px solid var(--border); text-align:center; }
+    .bmi-table tr:nth-child(even) td { background:#f9fafb; }
+    .status-badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:12px; font-weight:700; }
+    .s-low { background:#dbeafe; color:#1d4ed8; }
+    .s-normal { background:#d1fae5; color:#065f46; }
+    .s-over { background:#fef3c7; color:#92400e; }
+    .s-obese { background:#fee2e2; color:#991b1b; }
+
+    .example-box { background:#f0fdf4; border-radius:12px; padding:20px; margin:20px 0; }
+    .example-box .ex-title { font-weight:700; font-size:14px; color:var(--accent2); margin-bottom:12px; }
+    .example-box .ex-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #d1fae5; font-size:14px; }
+    .example-box .ex-row:last-child { border-bottom:none; }
+    .example-box .ex-val { font-weight:700; color:var(--accent2); }
+
+    .faq { margin:28px 0; }
+    .faq-item { border:1px solid var(--border); border-radius:12px; margin-bottom:10px; overflow:hidden; }
+    .faq-q { padding:16px 20px; font-weight:700; font-size:14px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; background:var(--card); }
+    .faq-a { padding:0 20px 16px; font-size:14px; color:var(--muted); line-height:1.8; display:none; }
+    .faq-item.open .faq-a { display:block; }
+    .faq-item.open .faq-q { color:var(--accent2); }
+
+    .ad-mid { background:var(--card); border:1px dashed var(--border); border-radius:12px; height:100px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px; margin:28px 0; }
+    .related { margin-top:40px; padding-top:28px; border-top:2px solid var(--border); }
+    .related-title { font-family:'Noto Serif KR',serif; font-size:1.1rem; font-weight:700; margin-bottom:16px; }
+    .related-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media(max-width:480px) { .related-grid { grid-template-columns:1fr; } }
+    .related-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; text-decoration:none; color:var(--text); transition:transform 0.15s; display:block; }
+    .related-card:hover { transform:translateY(-2px); }
+    .related-card .rc-cat { font-size:11px; color:var(--accent2); font-weight:700; margin-bottom:6px; }
+    .related-card .rc-title { font-size:14px; font-weight:700; }
+    footer { background:var(--dark); color:rgba(255,255,255,0.4); text-align:center; padding:24px; font-size:12px; line-height:2; }
+    footer a { color:rgba(255,255,255,0.4); text-decoration:none; margin:0 8px; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="back-btn">← 홈</a>
+  <a href="index.html" class="logo-b-wrap">
+    <span class="logo-b-crown">👑</span>
+    <span class="logo-b-text"><span class="lk">계</span><span class="ls">산</span><span class="lw">왕</span></span>
+  </a>
+</nav>
+<div class="ad-strip">📢 AdSense 광고 영역 (728×90)</div>
+
+<div class="container">
+  <div class="post-header">
+    <div class="post-cat">⚖️ 건강·다이어트</div>
+    <h1 class="post-title">BMI 정상수치 얼마일까?<br>체질량지수 완전 정리 2025</h1>
+    <div class="post-meta">
+      <span>✍️ 계산왕</span>
+      <span>📅 2025년 2월</span>
+      <span>⏱ 읽는 시간 4분</span>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-text">
+      <strong>⚖️ 내 BMI 바로 계산하기</strong>
+      키·몸무게 입력하면 비만도·이상 체중 즉시 계산
+    </div>
+    <a href="bmi.html" class="cta-btn">BMI 계산기 →</a>
+  </div>
+
+  <div class="post-body">
+    <p>BMI(Body Mass Index, 체질량지수)는 체중과 키를 이용해 비만도를 측정하는 가장 보편적인 지표입니다. 2025년 현재 병원, 건강검진, 다이어트 프로그램에서 널리 사용되고 있습니다. 내 BMI가 정상인지, 과체중인지 지금 바로 확인해보세요.</p>
+
+    <h2>BMI 정상수치 기준표</h2>
+    <p>한국을 포함한 아시아인은 서양인보다 낮은 BMI에서도 비만 관련 질환 위험이 높기 때문에, <strong>아시아 기준</strong>이 따로 적용됩니다.</p>
+
+    <div class="bmi-visual">
+      <div class="bmi-bar-container">
+        <div class="bmi-seg" style="width:15%;background:#60a5fa">저체중</div>
+        <div class="bmi-seg" style="width:25%;background:#34d399">정상</div>
+        <div class="bmi-seg" style="width:15%;background:#fbbf24">과체중</div>
+        <div class="bmi-seg" style="width:25%;background:#f97316">비만</div>
+        <div class="bmi-seg" style="width:20%;background:#ef4444">고도비만</div>
+      </div>
+      <div class="bmi-labels">
+        <span>~18.5</span><span>~23</span><span>~25</span><span>~30</span><span>30+</span>
+      </div>
+    </div>
+
+    <table class="bmi-table">
+      <tr><th>분류</th><th>BMI 범위 (아시아)</th><th>BMI 범위 (서양)</th><th>상태</th></tr>
+      <tr><td>저체중</td><td>18.5 미만</td><td>18.5 미만</td><td><span class="status-badge s-low">저체중</span></td></tr>
+      <tr><td>정상</td><td>18.5 ~ 22.9</td><td>18.5 ~ 24.9</td><td><span class="status-badge s-normal">정상 ✅</span></td></tr>
+      <tr><td>과체중</td><td>23.0 ~ 24.9</td><td>25.0 ~ 29.9</td><td><span class="status-badge s-over">과체중</span></td></tr>
+      <tr><td>1단계 비만</td><td>25.0 ~ 29.9</td><td>30.0 ~ 34.9</td><td><span class="status-badge s-obese">비만</span></td></tr>
+      <tr><td>2단계 비만</td><td>30.0 이상</td><td>35.0 이상</td><td><span class="status-badge s-obese">고도비만</span></td></tr>
+    </table>
+
+    <div class="highlight-box">
+      <div class="title">💡 핵심 포인트</div>
+      <p>아시아인 기준 <strong>BMI 18.5~22.9가 정상</strong>입니다. 서양 기준(25 미만)과 다르므로 주의하세요. 한국 건강검진에서는 아시아 기준을 사용합니다.</p>
+    </div>
+
+    <h2>BMI 계산법</h2>
+    <p>BMI 공식은 간단합니다. <strong>몸무게(kg)를 키(m)의 제곱으로 나누면</strong> 됩니다.</p>
+
+    <div class="example-box">
+      <div class="ex-title">📝 계산 예시 — 키 170cm, 몸무게 65kg</div>
+      <div class="ex-row"><span>키를 m로 변환</span><span class="ex-val">1.7m</span></div>
+      <div class="ex-row"><span>키의 제곱</span><span class="ex-val">1.7 × 1.7 = 2.89</span></div>
+      <div class="ex-row"><span>BMI 계산</span><span class="ex-val">65 ÷ 2.89 = 22.5</span></div>
+      <div class="ex-row"><span>결과</span><span class="ex-val">✅ 정상 범위</span></div>
+    </div>
+
+    <div class="ad-mid">📢 AdSense 광고 영역</div>
+
+    <h2>키별 정상 체중 범위</h2>
+    <p>아시아 기준(BMI 18.5~22.9)을 적용한 키별 정상 체중 범위입니다.</p>
+
+    <table class="bmi-table">
+      <tr><th>키</th><th>정상 체중 범위</th><th>이상적인 체중 (BMI 21)</th></tr>
+      <tr><td>155cm</td><td>44.4 ~ 55.0kg</td><td>50.4kg</td></tr>
+      <tr><td>160cm</td><td>47.4 ~ 58.6kg</td><td>53.8kg</td></tr>
+      <tr><td>165cm</td><td>50.3 ~ 62.3kg</td><td>57.1kg</td></tr>
+      <tr><td>170cm</td><td>53.5 ~ 66.2kg</td><td>60.7kg</td></tr>
+      <tr><td>175cm</td><td>56.7 ~ 70.1kg</td><td>64.3kg</td></tr>
+      <tr><td>180cm</td><td>59.9 ~ 74.2kg</td><td>68.0kg</td></tr>
+    </table>
+
+    <h2>BMI의 한계와 주의사항</h2>
+    <p>BMI는 편리한 지표이지만 완벽하지 않습니다. <strong>근육량이 많은 운동선수</strong>는 BMI가 높아도 비만이 아닐 수 있고, 반대로 BMI가 정상이어도 체지방률이 높은 경우도 있습니다.</p>
+    <p>정확한 체성분 분석을 원하시면 병원이나 헬스장에서 인바디 검사를 받는 것을 권장합니다. BMI는 참고 지표로 활용하세요.</p>
+
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>BMI 25 이상이면 무조건 비만인가요?</span><span>﹢</span></div>
+        <div class="faq-a">아시아인 기준 BMI 25 이상은 1단계 비만으로 분류됩니다. 다만 근육량이 많은 경우 BMI가 높아도 실제 체지방률은 낮을 수 있습니다. 체성분 검사로 정확히 확인하는 것이 좋습니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>다이어트 목표 체중은 어떻게 잡아야 하나요?</span><span>﹢</span></div>
+        <div class="faq-a">BMI 21~22를 목표로 잡는 것이 일반적입니다. 급격한 감량보다 주당 0.5~1kg 감량이 건강한 속도입니다. 칼로리 계산기로 하루 목표 칼로리를 확인해보세요.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>노인의 BMI 기준은 다른가요?</span><span>﹢</span></div>
+        <div class="faq-a">65세 이상 노인은 BMI 23~27 범위가 오히려 사망률이 낮다는 연구가 있습니다. 노인은 일반 기준보다 약간 높은 체중이 건강에 유리할 수 있어 의사와 상담하는 것이 좋습니다.</div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <div class="cta-text">
+        <strong>⚖️ 내 BMI 지금 바로 계산하기</strong>
+        비만도·이상 체중·체중 목표 즉시 확인
+      </div>
+      <a href="bmi.html" class="cta-btn">BMI 계산기 →</a>
+    </div>
+
+  </div>
+
+  <div class="related">
+    <div class="related-title">관련 계산기</div>
+    <div class="related-grid">
+      <a href="calorie.html" class="related-card"><div class="rc-cat">🔥 건강</div><div class="rc-title">칼로리 계산기 - 다이어트 칼로리 계산</div></a>
+      <a href="age.html" class="related-card"><div class="rc-cat">🎂 나이</div><div class="rc-title">나이 계산기 - 만 나이 계산</div></a>
+      <a href="salary.html" class="related-card"><div class="rc-cat">💰 재테크</div><div class="rc-title">급여 실수령액 계산기</div></a>
+      <a href="date.html" class="related-card"><div class="rc-cat">📅 날짜</div><div class="rc-title">디데이 계산기</div></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">홈</a><a href="about.html">소개</a><a href="privacy.html">개인정보처리방침</a>
+  <div>© 2025 계산왕</div>
+</footer>
+<script>
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+  el.querySelector('span:last-child').textContent = item.classList.contains('open') ? '﹣' : '﹢';
+}
+</script>
+</body>
+</html>

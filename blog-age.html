@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025 만 나이 계산법 완전 정리 - 한국식 나이 vs 만 나이 차이</title>
+  <meta name="description" content="2025년 만 나이 계산법을 완전히 정리했습니다. 한국식 나이와 만 나이의 차이, 연 나이까지 쉽게 계산하는 방법을 알려드립니다.">
+  <meta name="keywords" content="만나이계산기,만나이계산법,한국나이,나이계산기,2025만나이,만나이제도">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#fafaf8; --card:#fff; --dark:#1a1a2e; --accent:#34d399; --accent2:#059669; --text:#1a1a1a; --muted:#6b7280; --border:#e5e7eb; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; line-height:1.9; }
+    nav { background:#050d0a; padding:0 24px; display:flex; align-items:center; height:56px; gap:16px; }
+    .back-btn { color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; }
+    .logo-b-wrap { display:flex; flex-direction:column; align-items:center; gap:0; text-decoration:none; line-height:1; }
+    .logo-b-crown { font-size:13px; filter:drop-shadow(0 0 6px rgba(52,211,153,0.8)); animation:crownFloat 3s ease-in-out infinite; display:block; text-align:center; margin-bottom:-1px; }
+    @keyframes crownFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+    .logo-b-text { font-family:'Noto Serif KR',serif; font-size:1.2rem; font-weight:900; letter-spacing:-0.02em; }
+    .logo-b-text .lk { color:#34d399; } .logo-b-text .ls,.logo-b-text .lw { color:#fff; }
+
+    .ad-strip { background:#050d0a; height:90px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.2); font-size:12px; border-top:1px solid rgba(255,255,255,0.08); }
+
+    .container { max-width:780px; margin:0 auto; padding:40px 20px 80px; }
+
+    /* 글 헤더 */
+    .post-header { margin-bottom:36px; }
+    .post-cat { display:inline-block; background:rgba(52,211,153,0.12); color:var(--accent2); border:1px solid rgba(52,211,153,0.3); font-size:11px; font-weight:700; letter-spacing:0.15em; padding:4px 12px; border-radius:20px; margin-bottom:14px; }
+    .post-title { font-family:'Noto Serif KR',serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900; line-height:1.4; margin-bottom:14px; }
+    .post-meta { font-size:13px; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; padding-bottom:20px; border-bottom:2px solid var(--border); }
+
+    /* CTA 박스 */
+    .cta-box { background:linear-gradient(135deg,#050d0a,#0a1f14); border-radius:16px; padding:24px; margin:28px 0; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .cta-text { color:#fff; font-size:15px; font-weight:500; }
+    .cta-text strong { color:var(--accent); display:block; font-size:13px; margin-bottom:4px; letter-spacing:0.05em; }
+    .cta-btn { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#000; font-weight:700; font-size:14px; padding:12px 22px; border-radius:10px; text-decoration:none; white-space:nowrap; transition:transform 0.15s; }
+    .cta-btn:hover { transform:translateY(-2px); }
+
+    /* 본문 */
+    .post-body h2 { font-family:'Noto Serif KR',serif; font-size:1.4rem; font-weight:900; margin:36px 0 14px; padding-left:14px; border-left:4px solid var(--accent); }
+    .post-body h3 { font-size:1.1rem; font-weight:700; margin:24px 0 10px; color:var(--accent2); }
+    .post-body p { margin-bottom:16px; font-size:15px; color:#333; }
+    .post-body strong { color:var(--text); }
+
+    .highlight-box { background:rgba(52,211,153,0.08); border:1px solid rgba(52,211,153,0.25); border-radius:12px; padding:18px 20px; margin:20px 0; }
+    .highlight-box .title { font-weight:700; color:var(--accent2); margin-bottom:8px; font-size:14px; }
+    .highlight-box p { margin:0; font-size:14px; color:#444; }
+
+    .compare-table { width:100%; border-collapse:collapse; margin:20px 0; font-size:14px; }
+    .compare-table th { background:var(--dark); color:#fff; padding:12px 16px; text-align:center; }
+    .compare-table td { padding:11px 16px; border-bottom:1px solid var(--border); text-align:center; }
+    .compare-table tr:nth-child(even) td { background:#f9fafb; }
+    .compare-table .accent { color:var(--accent2); font-weight:700; }
+
+    .example-box { background:#f0fdf4; border-radius:12px; padding:20px; margin:20px 0; }
+    .example-box .ex-title { font-weight:700; font-size:14px; color:var(--accent2); margin-bottom:12px; }
+    .example-box .ex-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #d1fae5; font-size:14px; }
+    .example-box .ex-row:last-child { border-bottom:none; }
+    .example-box .ex-val { font-weight:700; color:var(--accent2); }
+
+    .faq { margin:28px 0; }
+    .faq-item { border:1px solid var(--border); border-radius:12px; margin-bottom:10px; overflow:hidden; }
+    .faq-q { padding:16px 20px; font-weight:700; font-size:14px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; background:var(--card); }
+    .faq-a { padding:0 20px 16px; font-size:14px; color:var(--muted); line-height:1.8; display:none; }
+    .faq-item.open .faq-a { display:block; }
+    .faq-item.open .faq-q { color:var(--accent2); }
+
+    .ad-mid { background:var(--card); border:1px dashed var(--border); border-radius:12px; height:100px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px; margin:28px 0; }
+
+    /* 관련 글 */
+    .related { margin-top:40px; padding-top:28px; border-top:2px solid var(--border); }
+    .related-title { font-family:'Noto Serif KR',serif; font-size:1.1rem; font-weight:700; margin-bottom:16px; }
+    .related-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media(max-width:480px) { .related-grid { grid-template-columns:1fr; } }
+    .related-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; text-decoration:none; color:var(--text); transition:transform 0.15s; display:block; }
+    .related-card:hover { transform:translateY(-2px); }
+    .related-card .rc-cat { font-size:11px; color:var(--accent2); font-weight:700; margin-bottom:6px; }
+    .related-card .rc-title { font-size:14px; font-weight:700; }
+
+    footer { background:var(--dark); color:rgba(255,255,255,0.4); text-align:center; padding:24px; font-size:12px; line-height:2; }
+    footer a { color:rgba(255,255,255,0.4); text-decoration:none; margin:0 8px; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="back-btn">← 홈</a>
+  <a href="index.html" class="logo-b-wrap">
+    <span class="logo-b-crown">👑</span>
+    <span class="logo-b-text"><span class="lk">계</span><span class="ls">산</span><span class="lw">왕</span></span>
+  </a>
+</nav>
+<div class="ad-strip">📢 AdSense 광고 영역 (728×90)</div>
+
+<div class="container">
+  <div class="post-header">
+    <div class="post-cat">📅 나이 계산</div>
+    <h1 class="post-title">2025 만 나이 계산법 완전 정리<br>한국식 나이 vs 만 나이 차이는?</h1>
+    <div class="post-meta">
+      <span>✍️ 계산왕</span>
+      <span>📅 2025년 2월</span>
+      <span>⏱ 읽는 시간 3분</span>
+    </div>
+  </div>
+
+  <!-- 상단 CTA -->
+  <div class="cta-box">
+    <div class="cta-text">
+      <strong>🎂 바로 계산하러 가기</strong>
+      한국식 나이·만 나이·띠·생일 D-day 즉시 계산
+    </div>
+    <a href="age.html" class="cta-btn">나이 계산기 →</a>
+  </div>
+
+  <div class="post-body">
+
+    <p>2023년 6월부터 대한민국 공식 나이 계산법이 <strong>만 나이</strong>로 통일됐습니다. 하지만 아직도 일상에서는 세 가지 나이 계산법이 혼용되고 있어 헷갈리는 분들이 많습니다. 이 글에서 세 가지 나이 계산법의 차이와 계산 방법을 완전히 정리해드립니다.</p>
+
+    <h2>세 가지 나이 계산법 차이</h2>
+    <p>한국에서는 세 가지 나이 계산법이 사용됩니다. 각각의 차이를 먼저 이해하는 것이 중요합니다.</p>
+
+    <table class="compare-table">
+      <tr><th>종류</th><th>계산 방법</th><th>사용 상황</th></tr>
+      <tr><td><strong>한국식 나이</strong></td><td>태어난 해를 1살로, 매년 1월 1일에 1살 추가</td><td>일상 대화</td></tr>
+      <tr><td class="accent"><strong>만 나이</strong></td><td>생일이 지나야 1살 추가</td><td>법적·공식 기준 ✅</td></tr>
+      <tr><td><strong>연 나이</strong></td><td>현재 연도 - 출생 연도</td><td>병역·학교 기준</td></tr>
+    </table>
+
+    <div class="highlight-box">
+      <div class="title">💡 핵심 요약</div>
+      <p>2023년 6월부터 법적·행정적으로는 <strong>만 나이가 공식 기준</strong>입니다. 병원, 계약서, 정부 서류는 모두 만 나이 기준이에요.</p>
+    </div>
+
+    <h2>만 나이 계산법</h2>
+    <p>만 나이는 생일을 기준으로 계산합니다. 올해 생일이 지났으면 <strong>올해 연도 - 출생 연도</strong>, 아직 생일이 안 지났으면 <strong>올해 연도 - 출생 연도 - 1</strong>입니다.</p>
+
+    <div class="example-box">
+      <div class="ex-title">📝 계산 예시 (2025년 기준, 1995년 8월 15일생)</div>
+      <div class="ex-row"><span>한국식 나이</span><span class="ex-val">31살</span></div>
+      <div class="ex-row"><span>만 나이 (생일 전)</span><span class="ex-val">29세</span></div>
+      <div class="ex-row"><span>만 나이 (생일 후)</span><span class="ex-val">30세</span></div>
+      <div class="ex-row"><span>연 나이</span><span class="ex-val">30세</span></div>
+    </div>
+
+    <h2>한국식 나이 계산법</h2>
+    <p>한국식 나이(세는 나이)는 태어나는 순간 1살이고, 매년 <strong>1월 1일</strong>이 되면 모든 사람이 동시에 한 살을 더 먹습니다. 생일과 상관없이 새해가 되면 나이가 올라가는 방식입니다.</p>
+    <p>계산 공식: <strong>현재 연도 - 출생 연도 + 1</strong></p>
+
+    <h2>연 나이 계산법</h2>
+    <p>연 나이는 주로 <strong>병역 판정</strong>이나 <strong>학교 입학 기준</strong>에 사용합니다. 생일과 관계없이 단순히 현재 연도에서 출생 연도를 빼면 됩니다.</p>
+    <p>계산 공식: <strong>현재 연도 - 출생 연도</strong></p>
+
+    <div class="ad-mid">📢 AdSense 광고 영역</div>
+
+    <h2>자주 묻는 질문 (FAQ)</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>만 나이 제도가 언제부터 시행됐나요?</span><span>﹢</span></div>
+        <div class="faq-a">2023년 6월 28일부터 법적·사회적 나이 기준이 만 나이로 통일됐습니다. 민법·행정기본법 등이 개정되어 공식 문서에서는 만 나이를 사용합니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>주민등록증·운전면허는 만 나이 기준인가요?</span><span>﹢</span></div>
+        <div class="faq-a">네. 주민등록증 발급(만 17세), 운전면허(만 18세), 음주·흡연(만 19세) 등 법적 기준은 모두 만 나이입니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>병역 판정은 어떤 나이 기준인가요?</span><span>﹢</span></div>
+        <div class="faq-a">병역법은 연 나이(출생 연도 기준)를 사용합니다. 해당 연도에 만 18세가 되는 남성이 병역 의무 대상입니다.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>나이를 빠르게 계산하는 방법이 있나요?</span><span>﹢</span></div>
+        <div class="faq-a">계산왕 나이 계산기를 이용하면 생년월일만 입력하면 한국식 나이, 만 나이, 연 나이, 생일 D-day, 띠까지 한 번에 계산할 수 있습니다.</div>
+      </div>
+    </div>
+
+    <!-- 하단 CTA -->
+    <div class="cta-box">
+      <div class="cta-text">
+        <strong>🎂 내 나이 지금 바로 계산하기</strong>
+        한국식·만 나이·띠·생일 D-day 무료 계산
+      </div>
+      <a href="age.html" class="cta-btn">나이 계산기 →</a>
+    </div>
+
+    <h2>마무리</h2>
+    <p>2025년 현재 공식적인 나이는 <strong>만 나이</strong>입니다. 병원, 계약, 정부 서류에서는 반드시 만 나이를 기준으로 확인하세요. 일상적인 대화에서는 여전히 한국식 나이가 많이 쓰이지만, 공식 상황에서는 만 나이가 기준입니다.</p>
+
+  </div><!-- .post-body -->
+
+  <!-- 관련 글 -->
+  <div class="related">
+    <div class="related-title">관련 계산기</div>
+    <div class="related-grid">
+      <a href="bmi.html" class="related-card"><div class="rc-cat">⚖️ 건강</div><div class="rc-title">BMI 계산기 - 체질량지수·비만도 계산</div></a>
+      <a href="date.html" class="related-card"><div class="rc-cat">📅 날짜</div><div class="rc-title">디데이 계산기 - 기념일·생일 카운트다운</div></a>
+      <a href="calorie.html" class="related-card"><div class="rc-cat">🔥 건강</div><div class="rc-title">칼로리 계산기 - 기초대사량 계산</div></a>
+      <a href="salary.html" class="related-card"><div class="rc-cat">💰 재테크</div><div class="rc-title">급여 실수령액 계산기</div></a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html">홈</a><a href="about.html">소개</a><a href="privacy.html">개인정보처리방침</a>
+  <div>© 2025 계산왕</div>
+</footer>
+
+<script>
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+  el.querySelector('span:last-child').textContent = item.classList.contains('open') ? '﹣' : '﹢';
+}
+</script>
+</body>
+</html>

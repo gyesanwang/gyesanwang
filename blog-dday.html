@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>디데이 계산기 활용법 - 연애·결혼·시험 D-day 계산하는 법</title>
+  <meta name="description" content="디데이(D-day) 계산기 활용법을 정리했습니다. 연애 100일, 결혼기념일, 수능·자격증 시험까지 D-day 계산하는 방법과 기념일 활용 팁을 알려드립니다.">
+  <meta name="keywords" content="디데이계산기,dday계산기,날짜계산기,100일계산,기념일계산,수능디데이,결혼기념일,연애100일">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#fafaf8;--card:#fff;--dark:#1a1a2e;--accent:#34d399;--accent2:#059669;--text:#1a1a1a;--muted:#6b7280;--border:#e5e7eb;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;line-height:1.9;}
+    nav{background:#050d0a;padding:0 24px;display:flex;align-items:center;height:56px;gap:16px;}
+    .back-btn{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;}
+    .logo-b-wrap{display:flex;flex-direction:column;align-items:center;gap:0;text-decoration:none;line-height:1;}
+    .logo-b-crown{font-size:13px;filter:drop-shadow(0 0 6px rgba(52,211,153,0.8));animation:crownFloat 3s ease-in-out infinite;display:block;text-align:center;margin-bottom:-1px;}
+    @keyframes crownFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+    .logo-b-text{font-family:'Noto Serif KR',serif;font-size:1.2rem;font-weight:900;}
+    .logo-b-text .lk{color:#34d399;}.logo-b-text .ls,.logo-b-text .lw{color:#fff;}
+    .ad-strip{background:#050d0a;height:90px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:12px;border-top:1px solid rgba(255,255,255,0.08);}
+    .container{max-width:780px;margin:0 auto;padding:40px 20px 80px;}
+    .post-cat{display:inline-block;background:rgba(52,211,153,0.12);color:var(--accent2);border:1px solid rgba(52,211,153,0.3);font-size:11px;font-weight:700;letter-spacing:0.15em;padding:4px 12px;border-radius:20px;margin-bottom:14px;}
+    .post-title{font-family:'Noto Serif KR',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.4;margin-bottom:14px;}
+    .post-meta{font-size:13px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;padding-bottom:20px;border-bottom:2px solid var(--border);margin-bottom:28px;}
+    .cta-box{background:linear-gradient(135deg,#050d0a,#0a1f14);border-radius:16px;padding:24px;margin:28px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .cta-text{color:#fff;font-size:15px;font-weight:500;}
+    .cta-text strong{color:var(--accent);display:block;font-size:13px;margin-bottom:4px;}
+    .cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;font-weight:700;font-size:14px;padding:12px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;}
+    h2{font-family:'Noto Serif KR',serif;font-size:1.4rem;font-weight:900;margin:36px 0 14px;padding-left:14px;border-left:4px solid var(--accent);}
+    h3{font-size:1.05rem;font-weight:700;margin:20px 0 8px;color:var(--accent2);}
+    p{margin-bottom:16px;font-size:15px;color:#333;}
+    strong{color:var(--text);}
+    .highlight-box{background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.25);border-radius:12px;padding:18px 20px;margin:20px 0;}
+    .highlight-box .title{font-weight:700;color:var(--accent2);margin-bottom:8px;font-size:14px;}
+    .highlight-box p{margin:0;font-size:14px;color:#444;}
+    .milestone-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0;}
+    @media(max-width:480px){.milestone-grid{grid-template-columns:repeat(2,1fr);}}
+    .milestone-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
+    .milestone-day{font-size:1.4rem;font-weight:900;color:var(--accent2);}
+    .milestone-label{font-size:12px;color:var(--muted);margin-top:4px;}
+    .use-cases{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+    @media(max-width:480px){.use-cases{grid-template-columns:1fr;}}
+    .use-case{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;}
+    .use-case .uc-icon{font-size:24px;margin-bottom:8px;}
+    .use-case .uc-title{font-weight:700;font-size:14px;margin-bottom:6px;}
+    .use-case .uc-desc{font-size:13px;color:var(--muted);line-height:1.7;}
+    .ad-mid{background:var(--card);border:1px dashed var(--border);border-radius:12px;height:100px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;margin:28px 0;}
+    .related{margin-top:40px;padding-top:28px;border-top:2px solid var(--border);}
+    .related-title{font-family:'Noto Serif KR',serif;font-size:1.1rem;font-weight:700;margin-bottom:16px;}
+    .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    @media(max-width:480px){.related-grid{grid-template-columns:1fr;}}
+    .related-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-decoration:none;color:var(--text);display:block;}
+    .related-card .rc-cat{font-size:11px;color:var(--accent2);font-weight:700;margin-bottom:6px;}
+    .related-card .rc-title{font-size:14px;font-weight:700;}
+    footer{background:var(--dark);color:rgba(255,255,255,0.4);text-align:center;padding:24px;font-size:12px;line-height:2;}
+    footer a{color:rgba(255,255,255,0.4);text-decoration:none;margin:0 8px;}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="back-btn">← 홈</a>
+  <a href="index.html" class="logo-b-wrap">
+    <span class="logo-b-crown">👑</span>
+    <span class="logo-b-text"><span class="lk">계</span><span class="ls">산</span><span class="lw">왕</span></span>
+  </a>
+</nav>
+<div class="ad-strip">📢 AdSense 광고 영역 (728×90)</div>
+<div class="container">
+  <div class="post-cat">📅 날짜·기념일</div>
+  <h1 class="post-title">디데이 계산기 활용법<br>연애·결혼·시험 D-day 완전 정리</h1>
+  <div class="post-meta"><span>✍️ 계산왕</span><span>📅 2025년 2월</span><span>⏱ 읽는 시간 3분</span></div>
+
+  <div class="cta-box">
+    <div class="cta-text"><strong>📅 D-day 지금 바로 계산하기</strong>날짜 차이·디데이·기념일 자동 계산</div>
+    <a href="date.html" class="cta-btn">디데이 계산기 →</a>
+  </div>
+
+  <p>연인과의 100일, 결혼기념일, 수능·자격증 시험까지 — 우리 일상에는 기억해야 할 날짜들이 넘쳐납니다. 디데이 계산기를 제대로 활용하면 중요한 날을 절대 잊지 않을 수 있어요. 활용법을 정리해드립니다.</p>
+
+  <h2>디데이(D-day)란?</h2>
+  <p>D-day는 원래 군사 용어로 특정 작전 시작일을 뜻했지만, 지금은 <strong>중요한 날까지 남은 날수</strong>를 의미합니다. 오늘 기준으로 목표일까지 며칠 남았는지(D-73, D-30 등) 또는 특정 날로부터 며칠이 지났는지(D+100, D+365)를 계산합니다.</p>
+
+  <div class="highlight-box">
+    <div class="title">💡 D+ vs D- 차이</div>
+    <p><strong>D+100</strong>: 기준일로부터 100일이 지난 날 (예: 사귄 지 100일)<br>
+    <strong>D-30</strong>: 목표일까지 30일 남은 날 (예: 시험까지 30일)</p>
+  </div>
+
+  <h2>디데이 계산기 활용 사례</h2>
+  <div class="use-cases">
+    <div class="use-case"><div class="uc-icon">💑</div><div class="uc-title">연애 기념일</div><div class="uc-desc">처음 만난 날, 사귀기 시작한 날 입력 → 100일·200일·1주년 자동 계산</div></div>
+    <div class="use-case"><div class="uc-icon">💍</div><div class="uc-title">결혼기념일</div><div class="uc-desc">결혼식 날짜 입력 → 1주년·5주년·10주년 등 은혼식·금혼식 날짜 자동 계산</div></div>
+    <div class="use-case"><div class="uc-icon">📚</div><div class="uc-title">시험·자격증</div><div class="uc-desc">수능·공무원·자격증 시험일 입력 → 매일 아침 남은 날 확인으로 동기 부여</div></div>
+    <div class="use-case"><div class="uc-icon">👶</div><div class="uc-title">출산·육아</div><div class="uc-desc">출산 예정일, 아기 태어난 날 입력 → 백일·돌·생후 일수 자동 계산</div></div>
+  </div>
+
+  <h2>연애 기념일 자동 계산</h2>
+  <p>계산왕 디데이 계산기는 기념일 탭에서 기준 날짜를 입력하면 <strong>100일·200일·365일(1주년)·500일·1000일</strong>을 자동으로 계산해줍니다.</p>
+
+  <div class="milestone-grid">
+    <div class="milestone-item"><div class="milestone-day">D+100</div><div class="milestone-label">백일 🎂</div></div>
+    <div class="milestone-item"><div class="milestone-day">D+200</div><div class="milestone-label">이백일 💕</div></div>
+    <div class="milestone-item"><div class="milestone-day">D+365</div><div class="milestone-label">1주년 🎉</div></div>
+    <div class="milestone-item"><div class="milestone-day">D+500</div><div class="milestone-label">오백일 ✨</div></div>
+    <div class="milestone-item"><div class="milestone-day">D+1000</div><div class="milestone-label">천일 👑</div></div>
+    <div class="milestone-item"><div class="milestone-day">D+2000</div><div class="milestone-label">이천일 💎</div></div>
+  </div>
+
+  <div class="ad-mid">📢 AdSense 광고 영역</div>
+
+  <h2>두 날짜 사이 날짜 차이 계산</h2>
+  <p>날짜 차이 탭에서는 두 날짜를 입력하면 사이 날짜를 <strong>일·주·개월·년</strong> 단위로 모두 계산합니다. 계약 만료일, 군 복무 기간, 프로젝트 기간 계산에 유용합니다.</p>
+
+  <h2>시험 D-day 활용 팁</h2>
+  <p>수험생들이 가장 많이 사용하는 방법은 시험일을 입력해두고 <strong>매일 아침 남은 날을 확인</strong>하는 것입니다. D-100, D-50, D-30, D-10처럼 중요 기점마다 공부 계획을 점검하면 효과적입니다.</p>
+  <p>북마크나 홈 화면에 추가해두면 매일 확인하기 편리합니다.</p>
+
+  <div class="cta-box">
+    <div class="cta-text"><strong>📅 D-day 지금 바로 계산하기</strong>날짜 차이·기념일·카운트다운 한번에</div>
+    <a href="date.html" class="cta-btn">디데이 계산기 →</a>
+  </div>
+
+  <div class="related">
+    <div class="related-title">관련 계산기</div>
+    <div class="related-grid">
+      <a href="age.html" class="related-card"><div class="rc-cat">🎂 나이</div><div class="rc-title">나이 계산기 - 만 나이·생일 D-day</div></a>
+      <a href="calorie.html" class="related-card"><div class="rc-cat">🔥 건강</div><div class="rc-title">칼로리 계산기 - 기초대사량</div></a>
+      <a href="bmi.html" class="related-card"><div class="rc-cat">⚖️ 건강</div><div class="rc-title">BMI 계산기 - 비만도 계산</div></a>
+      <a href="salary.html" class="related-card"><div class="rc-cat">💰 재테크</div><div class="rc-title">급여 실수령액 계산기</div></a>
+    </div>
+  </div>
+</div>
+<footer><a href="index.html">홈</a><a href="privacy.html">개인정보처리방침</a><div>© 2025 계산왕</div></footer>
+</body>
+</html>

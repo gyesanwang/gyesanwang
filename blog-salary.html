@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025 연봉 실수령액 계산법 - 세금 공제 후 실제 월급은?</title>
+  <meta name="description" content="2025년 기준 연봉별 실수령액을 계산하는 방법을 정리했습니다. 국민연금, 건강보험, 소득세 공제 후 실제 수령액을 확인하세요.">
+  <meta name="keywords" content="실수령액계산기,연봉실수령액,월급실수령액,2025연봉,세금공제,국민연금,건강보험,연봉계산기">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#fafaf8;--card:#fff;--dark:#1a1a2e;--accent:#34d399;--accent2:#059669;--text:#1a1a1a;--muted:#6b7280;--border:#e5e7eb;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;line-height:1.9;}
+    nav{background:#050d0a;padding:0 24px;display:flex;align-items:center;height:56px;gap:16px;}
+    .back-btn{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;}
+    .logo-b-wrap{display:flex;flex-direction:column;align-items:center;gap:0;text-decoration:none;line-height:1;}
+    .logo-b-crown{font-size:13px;filter:drop-shadow(0 0 6px rgba(52,211,153,0.8));animation:crownFloat 3s ease-in-out infinite;display:block;text-align:center;margin-bottom:-1px;}
+    @keyframes crownFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+    .logo-b-text{font-family:'Noto Serif KR',serif;font-size:1.2rem;font-weight:900;}
+    .logo-b-text .lk{color:#34d399;}.logo-b-text .ls,.logo-b-text .lw{color:#fff;}
+    .ad-strip{background:#050d0a;height:90px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:12px;border-top:1px solid rgba(255,255,255,0.08);}
+    .container{max-width:780px;margin:0 auto;padding:40px 20px 80px;}
+    .post-cat{display:inline-block;background:rgba(52,211,153,0.12);color:var(--accent2);border:1px solid rgba(52,211,153,0.3);font-size:11px;font-weight:700;letter-spacing:0.15em;padding:4px 12px;border-radius:20px;margin-bottom:14px;}
+    .post-title{font-family:'Noto Serif KR',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.4;margin-bottom:14px;}
+    .post-meta{font-size:13px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;padding-bottom:20px;border-bottom:2px solid var(--border);margin-bottom:28px;}
+    .cta-box{background:linear-gradient(135deg,#050d0a,#0a1f14);border-radius:16px;padding:24px;margin:28px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .cta-text{color:#fff;font-size:15px;font-weight:500;}
+    .cta-text strong{color:var(--accent);display:block;font-size:13px;margin-bottom:4px;}
+    .cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;font-weight:700;font-size:14px;padding:12px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;}
+    h2{font-family:'Noto Serif KR',serif;font-size:1.4rem;font-weight:900;margin:36px 0 14px;padding-left:14px;border-left:4px solid var(--accent);}
+    p{margin-bottom:16px;font-size:15px;color:#333;}
+    strong{color:var(--text);}
+    .salary-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px;}
+    .salary-table th{background:var(--dark);color:#fff;padding:12px 16px;text-align:center;}
+    .salary-table td{padding:11px 16px;border-bottom:1px solid var(--border);text-align:center;}
+    .salary-table tr:nth-child(even) td{background:#f9fafb;}
+    .salary-table .take{color:var(--accent2);font-weight:700;}
+    .highlight-box{background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.25);border-radius:12px;padding:18px 20px;margin:20px 0;}
+    .highlight-box .title{font-weight:700;color:var(--accent2);margin-bottom:8px;font-size:14px;}
+    .highlight-box p{margin:0;font-size:14px;color:#444;}
+    .deduct-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;}
+    @media(max-width:480px){.deduct-grid{grid-template-columns:1fr;}}
+    .deduct-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;}
+    .deduct-name{font-size:13px;font-weight:700;margin-bottom:4px;}
+    .deduct-rate{font-size:20px;font-weight:900;color:var(--accent2);}
+    .deduct-desc{font-size:11px;color:var(--muted);margin-top:4px;}
+    .ad-mid{background:var(--card);border:1px dashed var(--border);border-radius:12px;height:100px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;margin:28px 0;}
+    .related{margin-top:40px;padding-top:28px;border-top:2px solid var(--border);}
+    .related-title{font-family:'Noto Serif KR',serif;font-size:1.1rem;font-weight:700;margin-bottom:16px;}
+    .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    @media(max-width:480px){.related-grid{grid-template-columns:1fr;}}
+    .related-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-decoration:none;color:var(--text);display:block;}
+    .related-card .rc-cat{font-size:11px;color:var(--accent2);font-weight:700;margin-bottom:6px;}
+    .related-card .rc-title{font-size:14px;font-weight:700;}
+    footer{background:var(--dark);color:rgba(255,255,255,0.4);text-align:center;padding:24px;font-size:12px;line-height:2;}
+    footer a{color:rgba(255,255,255,0.4);text-decoration:none;margin:0 8px;}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="back-btn">← 홈</a>
+  <a href="index.html" class="logo-b-wrap">
+    <span class="logo-b-crown">👑</span>
+    <span class="logo-b-text"><span class="lk">계</span><span class="ls">산</span><span class="lw">왕</span></span>
+  </a>
+</nav>
+<div class="ad-strip">📢 AdSense 광고 영역 (728×90)</div>
+<div class="container">
+  <div class="post-cat">💰 급여·재테크</div>
+  <h1 class="post-title">2025 연봉 실수령액 계산법<br>세금 공제 후 실제 월급은 얼마?</h1>
+  <div class="post-meta"><span>✍️ 계산왕</span><span>📅 2025년 2월</span><span>⏱ 읽는 시간 4분</span></div>
+
+  <div class="cta-box">
+    <div class="cta-text"><strong>💰 내 실수령액 바로 계산하기</strong>연봉·월급 입력하면 세금 공제 후 실수령액 즉시 계산</div>
+    <a href="salary.html" class="cta-btn">실수령액 계산기 →</a>
+  </div>
+
+  <p>연봉 협상을 할 때 가장 중요한 것은 세금 공제 후 <strong>실제로 통장에 들어오는 금액</strong>입니다. 연봉 4,000만원과 3,600만원의 실수령액 차이가 얼마나 될까요? 2025년 기준 공제 항목과 연봉별 실수령액을 정리했습니다.</p>
+
+  <h2>2025년 연봉별 실수령액 표</h2>
+  <p>부양가족 1인(본인만) 기준, 비과세 없음 기준입니다.</p>
+  <table class="salary-table">
+    <tr><th>연봉</th><th>월 세전</th><th>총 공제액</th><th>월 실수령액</th><th>연 실수령액</th></tr>
+    <tr><td>2,400만원</td><td>200만원</td><td>약 26만원</td><td class="take">약 174만원</td><td>약 2,088만원</td></tr>
+    <tr><td>3,000만원</td><td>250만원</td><td>약 36만원</td><td class="take">약 214만원</td><td>약 2,568만원</td></tr>
+    <tr><td>3,600만원</td><td>300만원</td><td>약 45만원</td><td class="take">약 255만원</td><td>약 3,060만원</td></tr>
+    <tr><td>4,000만원</td><td>333만원</td><td>약 52만원</td><td class="take">약 281만원</td><td>약 3,372만원</td></tr>
+    <tr><td>5,000만원</td><td>417만원</td><td>약 71만원</td><td class="take">약 346만원</td><td>약 4,152만원</td></tr>
+    <tr><td>6,000만원</td><td>500만원</td><td>약 95만원</td><td class="take">약 405만원</td><td>약 4,860만원</td></tr>
+    <tr><td>8,000만원</td><td>667만원</td><td>약 148만원</td><td class="take">약 519만원</td><td>약 6,228만원</td></tr>
+  </table>
+
+  <div class="highlight-box">
+    <div class="title">💡 핵심 포인트</div>
+    <p>연봉이 높을수록 세율이 높아지는 누진세 구조입니다. 연봉 3,000만원과 6,000만원의 실수령액 비율을 비교하면 고소득자의 실질 공제율이 훨씬 높다는 걸 알 수 있습니다.</p>
+  </div>
+
+  <h2>급여에서 공제되는 항목</h2>
+  <div class="deduct-grid">
+    <div class="deduct-item"><div class="deduct-name">🏛 국민연금</div><div class="deduct-rate">4.5%</div><div class="deduct-desc">월 급여의 4.5% (회사 4.5% 추가 부담)</div></div>
+    <div class="deduct-item"><div class="deduct-name">🏥 건강보험</div><div class="deduct-rate">3.545%</div><div class="deduct-desc">장기요양보험 별도 추가 부담</div></div>
+    <div class="deduct-item"><div class="deduct-name">💼 고용보험</div><div class="deduct-rate">0.9%</div><div class="deduct-desc">실업급여 재원 (회사 0.9%~추가)</div></div>
+    <div class="deduct-item"><div class="deduct-name">📋 소득세</div><div class="deduct-rate">누진세</div><div class="deduct-desc">과표 구간별 6%~45% + 지방소득세 10%</div></div>
+  </div>
+
+  <div class="ad-mid">📢 AdSense 광고 영역</div>
+
+  <h2>실수령액을 높이는 방법</h2>
+  <p><strong>부양가족 수를 정확히 신고</strong>하면 소득세 공제액이 늘어 실수령액이 높아집니다. 배우자나 자녀가 있다면 반드시 부양가족으로 등록하세요.</p>
+  <p><strong>연말정산</strong>을 통해 1년간 납부한 세금 중 과납한 금액을 환급받을 수 있습니다. 신용카드·체크카드 사용액, 의료비, 교육비, 기부금 등을 꼼꼼히 챙기세요.</p>
+  <p><strong>비과세 수당</strong>을 활용하면 세금 부담을 줄일 수 있습니다. 식대(월 20만원), 자가운전보조금(월 20만원) 등은 비과세 처리됩니다.</p>
+
+  <div class="cta-box">
+    <div class="cta-text"><strong>💰 내 연봉 실수령액 정확히 계산하기</strong>부양가족 수까지 반영한 정확한 계산</div>
+    <a href="salary.html" class="cta-btn">실수령액 계산기 →</a>
+  </div>
+
+  <div class="related">
+    <div class="related-title">관련 계산기</div>
+    <div class="related-grid">
+      <a href="loan.html" class="related-card"><div class="rc-cat">🏦 금융</div><div class="rc-title">대출이자 계산기 - 월상환액 계산</div></a>
+      <a href="calorie.html" class="related-card"><div class="rc-cat">🔥 건강</div><div class="rc-title">칼로리 계산기 - 기초대사량</div></a>
+      <a href="bmi.html" class="related-card"><div class="rc-cat">⚖️ 건강</div><div class="rc-title">BMI 계산기 - 비만도 계산</div></a>
+      <a href="age.html" class="related-card"><div class="rc-cat">🎂 나이</div><div class="rc-title">나이 계산기 - 만 나이 계산</div></a>
+    </div>
+  </div>
+</div>
+<footer><a href="index.html">홈</a><a href="privacy.html">개인정보처리방침</a><div>© 2025 계산왕</div></footer>
+</body>
+</html>
