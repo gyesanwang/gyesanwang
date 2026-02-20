@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>단위변환 계산기 - 길이·무게·온도·넓이 단위변환 | 계산왕</title>
+  <meta name="description" content="길이, 무게, 온도, 넓이, 부피 단위를 즉시 변환하세요. cm↔inch, kg↔lb, 섭씨↔화씨, 평↔㎡ 등 모든 단위변환 무료 제공.">
+  <meta name="keywords" content="단위변환계산기,길이변환,무게변환,온도변환,cm인치변환,kg파운드,섭씨화씨,평방미터">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="단위변환 계산기 | 계산왕">
+  <meta property="og:description" content="길이·무게·온도·넓이 단위를 즉시 변환하세요.">
+  <link rel="canonical" href="https://gyesanwang.github.io/gyesanwang/unit.html">
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "단위변환 계산기",
+    "description": "길이, 무게, 온도, 넓이 단위를 즉시 변환합니다.",
+    "url": "https://gyesanwang.github.io/gyesanwang/unit.html",
+    "applicationCategory": "UtilitiesApplication",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "KRW"}
+  }</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#faf7ff; --card:#fff; --dark:#0f0820; --accent:#8b5cf6; --accent2:#6d28d9; --text:#0f0820; --muted:#6b7280; --border:#ddd6fe; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; min-height:100vh; }
+
+    nav { background:#050d0a; padding:0 24px; display:flex; align-items:center; height:56px; gap:16px; }
+    .back-btn { color:rgba(255,255,255,0.6); text-decoration:none; font-size:13px; }
+    .back-btn:hover { color:#fff; }
+    .logo-b-wrap { display:flex; flex-direction:column; align-items:center; gap:0; text-decoration:none; line-height:1; }
+    .logo-b-crown { font-size:13px; filter:drop-shadow(0 0 6px rgba(52,211,153,0.8)); animation:crownFloat 3s ease-in-out infinite; display:block; text-align:center; margin-bottom:-1px; }
+    @keyframes crownFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+    .logo-b-text { font-family:'Noto Serif KR',serif; font-size:1.2rem; font-weight:900; letter-spacing:-0.02em; }
+    .logo-b-text .lk { color:#34d399; }
+    .logo-b-text .ls { color:#fff; }
+    .logo-b-text .lw { color:#fff; text-shadow:0 0 10px rgba(52,211,153,0.5); }
+
+    .ad-strip { background:#050d0a; border-top:1px solid rgba(255,255,255,0.08); height:90px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.2); font-size:12px; }
+    .container { max-width:720px; margin:0 auto; padding:32px 16px 60px; }
+    .page-header { text-align:center; margin-bottom:32px; }
+    .page-badge { display:inline-block; background:rgba(139,92,246,0.12); color:var(--accent2); border:1px solid rgba(139,92,246,0.3); font-size:11px; font-weight:700; letter-spacing:0.15em; padding:4px 12px; border-radius:20px; margin-bottom:12px; }
+    h1 { font-family:'Noto Serif KR',serif; font-size:clamp(1.8rem,5vw,2.6rem); font-weight:900; margin-bottom:8px; }
+    h1 em { font-style:normal; color:var(--accent); }
+    .subtitle { color:var(--muted); font-size:14px; }
+
+    /* 카테고리 탭 */
+    .cat-tabs { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+    .cat-tab { padding:8px 16px; border:1.5px solid var(--border); border-radius:20px; font-size:13px; font-weight:500; cursor:pointer; transition:all 0.2s; color:var(--muted); background:var(--card); font-family:'Noto Sans KR',sans-serif; }
+    .cat-tab.active { background:var(--accent2); border-color:var(--accent2); color:#fff; }
+
+    .card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:28px; margin-bottom:20px; position:relative; overflow:hidden; }
+    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); }
+
+    /* 변환기 UI */
+    .converter { display:none; }
+    .converter.active { display:block; animation:fadeIn 0.3s ease; }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    .conv-title { font-family:'Noto Serif KR',serif; font-size:1.1rem; font-weight:700; margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+
+    .conv-row { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px; margin-bottom:14px; }
+    @media(max-width:480px) { .conv-row { grid-template-columns:1fr; } .conv-arrow { transform:rotate(90deg); } }
+
+    .conv-side { display:flex; flex-direction:column; gap:6px; }
+    .conv-select { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:'Noto Sans KR',sans-serif; font-size:14px; padding:10px 12px; outline:none; appearance:none; cursor:pointer; }
+    .conv-select:focus { border-color:var(--accent); }
+    .conv-input { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:10px; color:var(--text); font-family:'Noto Sans KR',sans-serif; font-size:18px; font-weight:700; padding:12px 14px; outline:none; transition:border-color 0.2s; }
+    .conv-input:focus { border-color:var(--accent); }
+    .conv-input.result-input { background:linear-gradient(135deg,rgba(139,92,246,0.06),rgba(109,40,217,0.03)); border-color:rgba(139,92,246,0.3); color:var(--accent2); }
+    .conv-arrow { font-size:24px; color:var(--accent); text-align:center; cursor:pointer; transition:transform 0.3s; user-select:none; }
+    .conv-arrow:hover { transform:rotate(180deg); }
+
+    /* 빠른 변환 */
+    .quick-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:16px; }
+    .quick-item { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:10px 14px; font-size:13px; cursor:pointer; transition:all 0.15s; }
+    .quick-item:hover { border-color:var(--accent); background:rgba(139,92,246,0.05); }
+    .quick-from { color:var(--text); font-weight:500; }
+    .quick-to { color:var(--muted); font-size:12px; margin-top:2px; }
+
+    .info-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:24px; margin-bottom:16px; }
+    .info-card h2 { font-family:'Noto Serif KR',serif; font-size:1.1rem; margin-bottom:12px; }
+    .info-card p { color:var(--muted); font-size:14px; line-height:1.8; }
+    .ad-mid { background:var(--card); border:1px dashed var(--border); border-radius:12px; height:120px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:12px; margin-bottom:20px; }
+    footer { background:var(--dark); color:rgba(255,255,255,0.4); text-align:center; padding:24px; font-size:12px; line-height:2; }
+    footer a { color:rgba(255,255,255,0.4); text-decoration:none; margin:0 8px; }
+    input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none; }
+    input[type="number"] { -moz-appearance:textfield; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="back-btn">← 홈</a>
+  <a href="index.html" class="logo-b-wrap">
+    <span class="logo-b-crown">👑</span>
+    <span class="logo-b-text"><span class="lk">계</span><span class="ls">산</span><span class="lw">왕</span></span>
+  </a>
+</nav>
+<div class="ad-strip">📢 AdSense 광고 영역 (728×90)</div>
+
+<div class="container">
+  <div class="page-header">
+    <div class="page-badge">📏 UNIT CONVERTER</div>
+    <h1>단위변환 <em>계산기</em></h1>
+    <p class="subtitle">길이·무게·온도·넓이·부피 단위를 즉시 변환</p>
+  </div>
+
+  <!-- 카테고리 선택 -->
+  <div class="cat-tabs">
+    <button class="cat-tab active" onclick="switchCat('length',this)">📏 길이</button>
+    <button class="cat-tab" onclick="switchCat('weight',this)">⚖️ 무게</button>
+    <button class="cat-tab" onclick="switchCat('temp',this)">🌡️ 온도</button>
+    <button class="cat-tab" onclick="switchCat('area',this)">🏠 넓이</button>
+    <button class="cat-tab" onclick="switchCat('volume',this)">🧴 부피</button>
+  </div>
+
+  <div class="card">
+
+    <!-- 길이 -->
+    <div class="converter active" id="conv-length">
+      <div class="conv-title">📏 길이 변환</div>
+      <div class="conv-row">
+        <div class="conv-side">
+          <select class="conv-select" id="length-from" onchange="convert('length')">
+            <option value="m">미터 (m)</option>
+            <option value="cm" selected>센티미터 (cm)</option>
+            <option value="mm">밀리미터 (mm)</option>
+            <option value="km">킬로미터 (km)</option>
+            <option value="inch">인치 (inch)</option>
+            <option value="ft">피트 (ft)</option>
+            <option value="yard">야드 (yard)</option>
+            <option value="mile">마일 (mile)</option>
+          </select>
+          <input type="number" class="conv-input" id="length-val" placeholder="값 입력" oninput="convert('length')">
+        </div>
+        <div class="conv-arrow" onclick="swapUnits('length')">⇄</div>
+        <div class="conv-side">
+          <select class="conv-select" id="length-to" onchange="convert('length')">
+            <option value="m">미터 (m)</option>
+            <option value="cm">센티미터 (cm)</option>
+            <option value="mm">밀리미터 (mm)</option>
+            <option value="km">킬로미터 (km)</option>
+            <option value="inch" selected>인치 (inch)</option>
+            <option value="ft">피트 (ft)</option>
+            <option value="yard">야드 (yard)</option>
+            <option value="mile">마일 (mile)</option>
+          </select>
+          <input type="number" class="conv-input result-input" id="length-result" readonly placeholder="결과">
+        </div>
+      </div>
+      <div class="quick-grid">
+        <div class="quick-item" onclick="quickConv('length','cm','inch',170)"><div class="quick-from">170 cm</div><div class="quick-to">→ 인치 변환</div></div>
+        <div class="quick-item" onclick="quickConv('length','km','mile',1)"><div class="quick-from">1 km</div><div class="quick-to">→ 마일 변환</div></div>
+        <div class="quick-item" onclick="quickConv('length','m','ft',1)"><div class="quick-from">1 m</div><div class="quick-to">→ 피트 변환</div></div>
+        <div class="quick-item" onclick="quickConv('length','inch','cm',1)"><div class="quick-from">1 inch</div><div class="quick-to">→ cm 변환</div></div>
+      </div>
+    </div>
+
+    <!-- 무게 -->
+    <div class="converter" id="conv-weight">
+      <div class="conv-title">⚖️ 무게 변환</div>
+      <div class="conv-row">
+        <div class="conv-side">
+          <select class="conv-select" id="weight-from" onchange="convert('weight')">
+            <option value="kg" selected>킬로그램 (kg)</option>
+            <option value="g">그램 (g)</option>
+            <option value="mg">밀리그램 (mg)</option>
+            <option value="ton">톤 (t)</option>
+            <option value="lb">파운드 (lb)</option>
+            <option value="oz">온스 (oz)</option>
+            <option value="geun">근 (斤)</option>
+          </select>
+          <input type="number" class="conv-input" id="weight-val" placeholder="값 입력" oninput="convert('weight')">
+        </div>
+        <div class="conv-arrow" onclick="swapUnits('weight')">⇄</div>
+        <div class="conv-side">
+          <select class="conv-select" id="weight-to" onchange="convert('weight')">
+            <option value="kg">킬로그램 (kg)</option>
+            <option value="g">그램 (g)</option>
+            <option value="mg">밀리그램 (mg)</option>
+            <option value="ton">톤 (t)</option>
+            <option value="lb" selected>파운드 (lb)</option>
+            <option value="oz">온스 (oz)</option>
+            <option value="geun">근 (斤)</option>
+          </select>
+          <input type="number" class="conv-input result-input" id="weight-result" readonly placeholder="결과">
+        </div>
+      </div>
+      <div class="quick-grid">
+        <div class="quick-item" onclick="quickConv('weight','kg','lb',60)"><div class="quick-from">60 kg</div><div class="quick-to">→ 파운드 변환</div></div>
+        <div class="quick-item" onclick="quickConv('weight','lb','kg',100)"><div class="quick-from">100 lb</div><div class="quick-to">→ kg 변환</div></div>
+        <div class="quick-item" onclick="quickConv('weight','kg','geun',1)"><div class="quick-from">1 kg</div><div class="quick-to">→ 근 변환</div></div>
+        <div class="quick-item" onclick="quickConv('weight','oz','g',1)"><div class="quick-from">1 oz</div><div class="quick-to">→ g 변환</div></div>
+      </div>
+    </div>
+
+    <!-- 온도 -->
+    <div class="converter" id="conv-temp">
+      <div class="conv-title">🌡️ 온도 변환</div>
+      <div class="conv-row">
+        <div class="conv-side">
+          <select class="conv-select" id="temp-from" onchange="convert('temp')">
+            <option value="c" selected>섭씨 (°C)</option>
+            <option value="f">화씨 (°F)</option>
+            <option value="k">켈빈 (K)</option>
+          </select>
+          <input type="number" class="conv-input" id="temp-val" placeholder="값 입력" oninput="convert('temp')">
+        </div>
+        <div class="conv-arrow" onclick="swapUnits('temp')">⇄</div>
+        <div class="conv-side">
+          <select class="conv-select" id="temp-to" onchange="convert('temp')">
+            <option value="c">섭씨 (°C)</option>
+            <option value="f" selected>화씨 (°F)</option>
+            <option value="k">켈빈 (K)</option>
+          </select>
+          <input type="number" class="conv-input result-input" id="temp-result" readonly placeholder="결과">
+        </div>
+      </div>
+      <div class="quick-grid">
+        <div class="quick-item" onclick="quickConv('temp','c','f',100)"><div class="quick-from">100°C (끓는점)</div><div class="quick-to">→ 화씨 변환</div></div>
+        <div class="quick-item" onclick="quickConv('temp','c','f',37)"><div class="quick-from">37°C (체온)</div><div class="quick-to">→ 화씨 변환</div></div>
+        <div class="quick-item" onclick="quickConv('temp','f','c',32)"><div class="quick-from">32°F (어는점)</div><div class="quick-to">→ 섭씨 변환</div></div>
+        <div class="quick-item" onclick="quickConv('temp','c','f',0)"><div class="quick-from">0°C (어는점)</div><div class="quick-to">→ 화씨 변환</div></div>
+      </div>
+    </div>
+
+    <!-- 넓이 -->
+    <div class="converter" id="conv-area">
+      <div class="conv-title">🏠 넓이 변환</div>
+      <div class="conv-row">
+        <div class="conv-side">
+          <select class="conv-select" id="area-from" onchange="convert('area')">
+            <option value="m2" selected>제곱미터 (㎡)</option>
+            <option value="pyeong">평 (坪)</option>
+            <option value="km2">제곱킬로미터 (㎢)</option>
+            <option value="ha">헥타르 (ha)</option>
+            <option value="ft2">제곱피트 (ft²)</option>
+            <option value="acre">에이커 (acre)</option>
+          </select>
+          <input type="number" class="conv-input" id="area-val" placeholder="값 입력" oninput="convert('area')">
+        </div>
+        <div class="conv-arrow" onclick="swapUnits('area')">⇄</div>
+        <div class="conv-side">
+          <select class="conv-select" id="area-to" onchange="convert('area')">
+            <option value="m2">제곱미터 (㎡)</option>
+            <option value="pyeong" selected>평 (坪)</option>
+            <option value="km2">제곱킬로미터 (㎢)</option>
+            <option value="ha">헥타르 (ha)</option>
+            <option value="ft2">제곱피트 (ft²)</option>
+            <option value="acre">에이커 (acre)</option>
+          </select>
+          <input type="number" class="conv-input result-input" id="area-result" readonly placeholder="결과">
+        </div>
+      </div>
+      <div class="quick-grid">
+        <div class="quick-item" onclick="quickConv('area','m2','pyeong',84)"><div class="quick-from">84㎡ (국민평형)</div><div class="quick-to">→ 평 변환</div></div>
+        <div class="quick-item" onclick="quickConv('area','pyeong','m2',33)"><div class="quick-from">33평</div><div class="quick-to">→ ㎡ 변환</div></div>
+        <div class="quick-item" onclick="quickConv('area','m2','pyeong',59)"><div class="quick-from">59㎡</div><div class="quick-to">→ 평 변환</div></div>
+        <div class="quick-item" onclick="quickConv('area','m2','pyeong',114)"><div class="quick-from">114㎡</div><div class="quick-to">→ 평 변환</div></div>
+      </div>
+    </div>
+
+    <!-- 부피 -->
+    <div class="converter" id="conv-volume">
+      <div class="conv-title">🧴 부피 변환</div>
+      <div class="conv-row">
+        <div class="conv-side">
+          <select class="conv-select" id="volume-from" onchange="convert('volume')">
+            <option value="l" selected>리터 (L)</option>
+            <option value="ml">밀리리터 (mL)</option>
+            <option value="m3">세제곱미터 (m³)</option>
+            <option value="gal">갤런 (US gal)</option>
+            <option value="fl_oz">액량온스 (fl oz)</option>
+            <option value="cup">컵 (cup)</option>
+          </select>
+          <input type="number" class="conv-input" id="volume-val" placeholder="값 입력" oninput="convert('volume')">
+        </div>
+        <div class="conv-arrow" onclick="swapUnits('volume')">⇄</div>
+        <div class="conv-side">
+          <select class="conv-select" id="volume-to" onchange="convert('volume')">
+            <option value="l">리터 (L)</option>
+            <option value="ml">밀리리터 (mL)</option>
+            <option value="m3">세제곱미터 (m³)</option>
+            <option value="gal" selected>갤런 (US gal)</option>
+            <option value="fl_oz">액량온스 (fl oz)</option>
+            <option value="cup">컵 (cup)</option>
+          </select>
+          <input type="number" class="conv-input result-input" id="volume-result" readonly placeholder="결과">
+        </div>
+      </div>
+    </div>
+
+  </div><!-- .card -->
+
+  <div class="ad-mid">📢 AdSense 광고 영역 (300×250)</div>
+
+  <div class="info-card">
+    <h2>자주 사용하는 단위변환 공식</h2>
+    <p>1인치 = 2.54cm · 1파운드 = 0.4536kg · 1평 = 3.3058㎡ · 섭씨→화씨: (°C × 9/5) + 32 · 1갤런(US) = 3.785리터</p>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">홈</a><a href="privacy.html">개인정보처리방침</a>
+  <div>© 2025 계산왕</div>
+</footer>
+
+<script>
+  // 단위 → 기본단위 변환 계수 (길이: m, 무게: kg, 넓이: m², 부피: L)
+  const UNITS = {
+    length: { m:1, cm:0.01, mm:0.001, km:1000, inch:0.0254, ft:0.3048, yard:0.9144, mile:1609.344 },
+    weight: { kg:1, g:0.001, mg:0.000001, ton:1000, lb:0.453592, oz:0.0283495, geun:0.6 },
+    area:   { m2:1, pyeong:3.30579, km2:1e6, ha:1e4, ft2:0.092903, acre:4046.86 },
+    volume: { l:1, ml:0.001, m3:1000, gal:3.78541, fl_oz:0.0295735, cup:0.236588 },
+  };
+
+  function toBase(cat, unit, val) {
+    if (cat === 'temp') return val; // 온도는 별도 처리
+    return val * UNITS[cat][unit];
+  }
+  function fromBase(cat, unit, val) {
+    if (cat === 'temp') return val;
+    return val / UNITS[cat][unit];
+  }
+  function convertTemp(val, from, to) {
+    let c;
+    if (from === 'c') c = val;
+    else if (from === 'f') c = (val - 32) * 5/9;
+    else c = val - 273.15;
+    if (to === 'c') return c;
+    if (to === 'f') return c * 9/5 + 32;
+    return c + 273.15;
+  }
+
+  function convert(cat) {
+    const val = parseFloat(document.getElementById(cat+'-val').value);
+    if (isNaN(val)) { document.getElementById(cat+'-result').value = ''; return; }
+    const from = document.getElementById(cat+'-from').value;
+    const to   = document.getElementById(cat+'-to').value;
+    let result;
+    if (cat === 'temp') result = convertTemp(val, from, to);
+    else result = fromBase(cat, to, toBase(cat, from, val));
+    // 소수점 처리
+    const rounded = Math.abs(result) >= 1000 ? Math.round(result * 100)/100 :
+                    Math.abs(result) >= 1 ? Math.round(result * 10000)/10000 :
+                    parseFloat(result.toPrecision(6));
+    document.getElementById(cat+'-result').value = rounded;
+  }
+
+  function swapUnits(cat) {
+    const fromSel = document.getElementById(cat+'-from');
+    const toSel   = document.getElementById(cat+'-to');
+    const tmp = fromSel.value;
+    fromSel.value = toSel.value;
+    toSel.value = tmp;
+    // 결과값을 입력값으로
+    const res = document.getElementById(cat+'-result').value;
+    if (res) document.getElementById(cat+'-val').value = res;
+    convert(cat);
+  }
+
+  function quickConv(cat, from, to, val) {
+    document.getElementById(cat+'-from').value = from;
+    document.getElementById(cat+'-to').value = to;
+    document.getElementById(cat+'-val').value = val;
+    convert(cat);
+  }
+
+  function switchCat(cat, btn) {
+    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.converter').forEach(c => c.classList.remove('active'));
+    document.getElementById('conv-'+cat).classList.add('active');
+  }
+</script>
+</body>
+</html>
